@@ -633,7 +633,10 @@ function loadVoices(){ try{VOICES=speechSynthesis.getVoices()||[]}catch(e){VOICE
 if(window.speechSynthesis){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
 function pickVoice(){
   if(!VOICES.length) return null;
-  var pref=["Zarvox","Trinoids","Albert","Bad News","Google UK English Male","Microsoft David","Daniel","Alex"];
+  /* Prefer purpose-built robot voices, then flat synthetic ones. Deliberately
+     avoids the breathy "natural" voices - those are what read as creepy. */
+  var pref=["Zarvox","Trinoids","Boing","Google UK English Male","Microsoft David",
+            "Microsoft Mark","Daniel","Alex","Fred"];
   for(var i=0;i<pref.length;i++){
     for(var j=0;j<VOICES.length;j++){ if(VOICES[j].name.indexOf(pref[i])>-1) return VOICES[j]; }
   }
@@ -999,11 +1002,18 @@ function detonate(){
 
     setTimeout(function(){$("#klaxon").classList.remove("on")},2600);
 
-    /* the only thing the Bureau ever says out loud. It waits for the boom to
-       clear so nothing steps on it, and nothing after it is allowed to speak. */
+    /* the only thing the Bureau ever says out loud. Staccato machine cadence:
+       periods force hard stops in every TTS engine. Normal pitch reads robotic;
+       low pitch reads demonic, which was scaring people. */
     setTimeout(function(){
-      say("YOU ACKNOWLEDGE THAT YOU ARE NEAR SOMEONE WHO IS SWOLE, BRO.",
-          {pitch:.08,rate:.74,priority:true,hold:5600});
+      /* PA-announcement framing: two-tone chime in, terminating tone out.
+         Machines announce; they do not whisper. */
+      beep(988,0,.07,"square"); beep(1319,.09,.10,"square");
+      setTimeout(function(){
+        say("YOU ACKNOWLEDGE. THAT YOU ARE NEAR. SOMEONE. WHO IS. SWOLE. BRO.",
+            {pitch:1.05,rate:.92,priority:true,hold:6000});
+      },300);
+      setTimeout(function(){ beep(660,0,.16,"square"); },4200);
     },reduced?80:2000);
 
     /* EXECUTED slam */
