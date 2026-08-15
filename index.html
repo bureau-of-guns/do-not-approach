@@ -89,6 +89,14 @@ body{
 .hud .tc{font-size:9px;color:var(--magenta);letter-spacing:.12em;
   background:rgba(10,1,24,.86);padding:4px 7px;border:1px solid var(--magenta)}
 
+/* ============================================================== CAPTION */
+#vox{position:fixed;left:0;right:0;bottom:14px;z-index:72;text-align:center;
+  pointer-events:none;padding:0 14px}
+#vox span{display:inline-block;font-family:var(--mono);font-size:clamp(12px,3.4vw,15px);
+  letter-spacing:.13em;text-transform:uppercase;color:var(--toxic);line-height:1.35;
+  background:rgba(10,1,24,.86);border:1px solid var(--toxic);padding:8px 13px;max-width:760px;
+  box-shadow:0 0 20px rgba(182,255,58,.4)}
+
 /* ================================================================= DOC */
 .doc{width:100%;max-width:580px;position:relative;z-index:2;
   background:linear-gradient(180deg,var(--panel),#12072a);
@@ -435,6 +443,7 @@ input[type=text]:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255
   </div>
 </div>
 
+<div id="vox"></div>
 <div id="term"><div id="termlines"></div></div>
 <div id="shards"></div>
 <canvas id="fx"></canvas>
@@ -468,7 +477,7 @@ setInterval(function(){
 
 /* ------------------------------------------------------------- redaction */
 document.querySelectorAll(".redact").forEach(function(r){
-  var open=function(){r.classList.add("open");say("DECLASSIFIED.");};
+  var open=function(){r.classList.add("open");say("DECLASSIFIED.",{priority:true});};
   r.addEventListener("click",open);
   r.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
 });
@@ -574,32 +583,87 @@ function pickVoice(){
   }
   return null;
 }
-function say(text,opts){
-  if(!voiceOn||muted||!window.speechSynthesis) return;
-  opts=opts||{};
+/* One line at a time. A line always shows on screen, whether or not the
+   device can speak it. Priority lines cut the queue; ordinary lines are
+   dropped rather than stacked, so the Bureau never talks over itself. */
+var VQ=[], vBusy=false, capT=null;
+
+function caption(text,hold){
+  var b=$("#vox");
+  b.innerHTML="<span>"+text.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</span>";
+  clearTimeout(capT);
+  capT=setTimeout(function(){b.innerHTML=""},hold||2600);
+}
+function duck(on){
+  if(!drone) return;
   try{
-    var u=new SpeechSynthesisUtterance(text);
-    var v=pickVoice(); if(v) u.voice=v;
-    u.pitch=opts.pitch!=null?opts.pitch:rnd(.1,.5);
-    u.rate=opts.rate!=null?opts.rate:rnd(.75,.95);
-    u.volume=opts.volume!=null?opts.volume:1;
-    speechSynthesis.speak(u);
+    var c=ac(), t=c.currentTime, target=muted?0:(on?.010:.028);
+    drone.g.gain.cancelScheduledValues(t);
+    drone.g.gain.setTargetAtTime(target,t,.12);
   }catch(e){}
 }
-
-var BARKS=["LEGAL.","BICEPS.","COMPLIANCE.","LEGAL. LEGAL.","PROXIMITY VIOLATION.",
-  "SLEEVE INTEGRITY CRITICAL.","DO NOT APPROACH.","THE GUNS ARE OPERATIONAL.",
-  "MAXIMUM SWOLE.","BUREAU.","THIS IS NOT A DRILL.","INITIAL REQUIRED.",
-  "BISCUIT READINESS HIGH.","ARMS DETECTED.","STAND BY.","AWAITING SIGNATURE.",
-  "BICEPS. BICEPS.","INPUT REQUIRED.","LEGAL."];
-var barkTimer=null;
-function startBarks(){
-  if(barkTimer) return;
-  var loop=function(){
-    say(BARKS[Math.floor(Math.random()*BARKS.length)]);
-    barkTimer=setTimeout(loop,rnd(5200,12000));
+function say(text,opts){
+  if(!voiceOn) return;
+  opts=opts||{};
+  if(opts.priority){
+    VQ.length=0;
+    if(window.speechSynthesis){ try{speechSynthesis.cancel()}catch(e){} }
+    vBusy=false;
+  } else if(vBusy||VQ.length){
+    return;                       /* never stack ordinary chatter */
+  }
+  VQ.push({text:text,opts:opts});
+  drainVoice();
+}
+function drainVoice(){
+  if(vBusy||!VQ.length) return;
+  var it=VQ.shift(); vBusy=true;
+  caption(it.text,it.opts.hold);
+  duck(true);
+  var release=function(){
+    vBusy=false; duck(false);
+    setTimeout(drainVoice,260);
   };
-  barkTimer=setTimeout(loop,2200);
+  if(muted||!window.speechSynthesis){
+    setTimeout(release,Math.min(3200,900+it.text.length*55));
+    return;
+  }
+  try{
+    var u=new SpeechSynthesisUtterance(it.text);
+    var v=pickVoice(); if(v) u.voice=v;
+    u.pitch=it.opts.pitch!=null?it.opts.pitch:.35;
+    u.rate=it.opts.rate!=null?it.opts.rate:.85;
+    u.onend=release; u.onerror=release;
+    speechSynthesis.speak(u);
+    /* some engines never fire onend; fail safe */
+    setTimeout(function(){ if(vBusy) release(); },Math.min(6000,1800+it.text.length*70));
+  }catch(e){ release(); }
+}
+
+/* The Bureau speaks only when you have gone quiet, and never during the
+   finale. No two lines in a row are the same. */
+var BARKS=["LEGAL.","BICEPS.","COMPLIANCE CONFIRMED.","PROXIMITY VIOLATION.",
+  "SLEEVE INTEGRITY CRITICAL.","DO NOT APPROACH.","THE GUNS ARE OPERATIONAL.",
+  "MAXIMUM SWOLE.","THIS IS NOT A DRILL.","BISCUIT READINESS HIGH.",
+  "ARMS DETECTED.","AWAITING YOUR SIGNATURE.","BICEPS. BICEPS.","STAND BY."];
+var lastBark=-1, lastAct=Date.now(), finaleRunning=false, idleTimer=null;
+function markActive(){ lastAct=Date.now(); }
+["pointerdown","keydown","wheel","touchstart"].forEach(function(ev){
+  addEventListener(ev,markActive,{passive:true});
+});
+addEventListener("scroll",markActive,{passive:true});
+
+function startBarks(){
+  if(idleTimer) return;
+  idleTimer=setInterval(function(){
+    if(finaleRunning||!armed||vBusy||VQ.length) return;
+    if(Date.now()-lastAct < 11000) return;      /* only once you have paused */
+    var i=Math.floor(Math.random()*BARKS.length);
+    if(i===lastBark) i=(i+1)%BARKS.length;
+    lastBark=i;
+    say(BARKS[i]);
+    lastAct=Date.now();                          /* space them out */
+  },4000);
 }
 
 /* first gesture unlocks audio + speech */
@@ -607,7 +671,7 @@ var armed=false;
 function arm(){
   if(armed) return; armed=true;
   ensureAudio(); startBarks();
-  say("BUREAU ONLINE. DO NOT APPROACH.",{pitch:.2,rate:.8});
+  say("BUREAU ONLINE. DO NOT APPROACH.",{pitch:.2,rate:.8,priority:true,hold:3000});
 }
 ["pointerdown","keydown","touchstart"].forEach(function(ev){
   document.addEventListener(ev,arm,{once:false,passive:true});
@@ -684,10 +748,13 @@ function inkPad(wrap,canvas,width,color){
   function pos(e){var r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
   canvas.addEventListener("pointerdown",function(e){
     e.preventDefault(); drawing=true;
-    if(!dirty){ dirty=true; wrap.classList.add("inked"); }
+    if(!dirty){
+      dirty=true; wrap.classList.add("inked");
+      beep(680,0,.07,"sine"); beep(1020,.07,.09,"sine");
+      say("MARK ACCEPTED.");
+    }
     canvas.setPointerCapture(e.pointerId); last=pos(e);
     ctx.beginPath(); ctx.arc(last.x,last.y,width/2,0,TAU); ctx.fillStyle=color; ctx.fill();
-    beep(rnd(600,900),0,.03,"sine");
   });
   canvas.addEventListener("pointermove",function(e){
     if(!drawing)return; e.preventDefault(); var p=pos(e);
@@ -702,7 +769,7 @@ function inkPad(wrap,canvas,width,color){
   };
 }
 var sig=inkPad($("#sigwrap"),$("#sigc"),2.8,"#00F0FF");
-$("#clr").addEventListener("click",function(){sig.clear();say("CLEARED.")});
+$("#clr").addEventListener("click",function(){sig.clear();beep(300,0,.12,"square");say("SIGNATURE CLEARED.",{priority:true})});
 
 /* ------------------------------------------------------------ validation */
 function validate(){
@@ -839,7 +906,8 @@ function detonate(){
   (function next(){
     if(i<BOOT.length){
       var d=document.createElement("div"); d.innerHTML=BOOT[i]; host.appendChild(d);
-      beep(480+i*110,0,.06); say(BOOTV[i],{pitch:.15,rate:.95});
+      beep(440+i*95,0,.055);
+      if(i===0||i===BOOT.length-1) say(BOOTV[i],{pitch:.15,rate:.95,priority:true});
       i++; setTimeout(next,reduced?60:340);
     } else { setTimeout(go,reduced?60:520); }
   })();
@@ -852,7 +920,7 @@ function detonate(){
     fxInit(); FX.last=performance.now();
     siren(); boom(1);
     $("#klaxon").classList.add("on");
-    say("COMPLIANCE CONFIRMED.",{pitch:.1,rate:.8});
+    say("COMPLIANCE CONFIRMED.",{pitch:.1,rate:.8,priority:true,hold:2400});
 
     $("#flash").animate([{opacity:0},{opacity:1,offset:.05},{opacity:.6,offset:.25},{opacity:0}],
       {duration:900,easing:"ease-out"});
@@ -887,7 +955,7 @@ function detonate(){
     /* EXECUTED slam */
     setTimeout(function(){
       var sl=$("#slam"); sl.classList.add("on");
-      boom(.7); say("EXECUTED.",{pitch:.05,rate:.7});
+      boom(.7); say("EXECUTED.",{pitch:.05,rate:.7,priority:true,hold:2000});
       setTimeout(function(){ sl.classList.remove("on"); },1500);
     },reduced?150:1500);
 
@@ -899,7 +967,7 @@ function detonate(){
       $("#after").classList.add("on");
       $("#after").scrollIntoView({behavior:reduced?"auto":"smooth",block:"center"});
       runScore();
-      say("BEVERAGE ACCESS RESTORED.",{pitch:.2,rate:.85});
+      say("BEVERAGE ACCESS RESTORED.",{pitch:.2,rate:.85,priority:true,hold:3000});
     },reduced?300:3100);
   }
 }
@@ -909,8 +977,15 @@ function runScore(){
   (function tick(t){
     var k=Math.min(1,(t-start)/dur), e=1-Math.pow(1-k,3);
     el.textContent=Math.floor(target*e).toLocaleString();
-    if(k<1){ if(Math.random()<.3) beep(rnd(900,1600),0,.02,"square"); requestAnimationFrame(tick); }
-    else { $("#rank").textContent="RANK: S++"; beep(1800,0,.3,"square"); say("RANK. S PLUS PLUS.",{pitch:.3,rate:.8}); }
+    if(k<1){
+      var step=Math.floor(k*22);
+      if(step!==tick.last){ tick.last=step; beep(760+step*34,0,.028,"square"); }
+      requestAnimationFrame(tick);
+    } else {
+      $("#rank").textContent="RANK: S++";
+      beep(1046,0,.16,"square"); beep(1318,.10,.16,"square"); beep(1568,.20,.34,"square");
+      say("RANK. S PLUS PLUS.",{pitch:.3,rate:.8,priority:true,hold:2600});
+    }
   })(start);
 }
 
@@ -919,13 +994,14 @@ $("#go").addEventListener("click",function(){
   var bad=validate();
   var err=$("#err");
   if(bad){
-    err.textContent=bad.msg; say(bad.v,{pitch:.1,rate:.85});
+    err.textContent=bad.msg; say(bad.v,{pitch:.1,rate:.85,priority:true,hold:2600});
     if(!reduced) $("#doc").animate([{transform:"translateX(0)"},{transform:"translateX(-12px)"},
       {transform:"translateX(12px)"},{transform:"translateX(0)"}],{duration:280});
     beep(110,0,.2,"sawtooth");
     return;
   }
   err.textContent=""; this.disabled=true;
+  finaleRunning=true;
   detonate();
 });
 
@@ -934,12 +1010,12 @@ $("#again").addEventListener("click",function(){
   $("#after").classList.remove("on");
   var doc=$("#doc");
   doc.style.display=""; doc.style.visibility="visible";
-  $("#go").disabled=false;
+  $("#go").disabled=false; finaleRunning=false;
   $("#scoreval").textContent="0"; $("#rank").innerHTML="RANK: &mdash;";
   doc.animate([{opacity:0,transform:"scale(.88)"},{opacity:1,transform:"scale(1)"}],
     {duration:600,easing:"cubic-bezier(.2,.9,.3,1)"});
   doc.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
-  say("DOCUMENT REASSEMBLED.",{pitch:.2});
+  say("DOCUMENT REASSEMBLED.",{pitch:.2,priority:true});
 });
 
 /* --------------------------------------------------------------- download */
@@ -1015,7 +1091,7 @@ $("#dl").addEventListener("click",function(){
     var a=document.createElement("a");
     a.download="BGP-1147_Executed_Waiver.png";
     a.href=c.toDataURL("image/png"); a.click();
-    say("COPY DISPATCHED.",{pitch:.25});
+    say("COPY DISPATCHED.",{pitch:.25,priority:true});
   }
 });
 })();
