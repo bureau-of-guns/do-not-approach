@@ -483,7 +483,7 @@ setInterval(function(){
 
 /* ------------------------------------------------------------- redaction */
 document.querySelectorAll(".redact").forEach(function(r){
-  var open=function(){r.classList.add("open");say("DECLASSIFIED.",{priority:true});};
+  var open=function(){r.classList.add("open");zap();blip();};
   r.addEventListener("click",open);
   r.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
 });
@@ -577,6 +577,56 @@ function beep(f,when,dur,type){
   o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+dur+.02);
 }
 
+/* --- wordless ambience: the Bureau breathes, it does not chatter --- */
+function noise(c,secs,shape){
+  var len=Math.max(1,Math.floor(c.sampleRate*secs)),b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);
+  for(var i=0;i<len;i++) d[i]=(Math.random()*2-1)*(shape?Math.pow(1-i/len,shape):1);
+  return b;
+}
+function blip(){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime;
+  var o=c.createOscillator(),g=c.createGain();
+  o.type="sine"; o.frequency.setValueAtTime(1180,t);
+  o.frequency.exponentialRampToValueAtTime(1580,t+.05);
+  g.gain.setValueAtTime(.032,t); g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.32);
+}
+function hiss(){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime;
+  var n=c.createBufferSource(); n.buffer=noise(c,.55,2);
+  var f=c.createBiquadFilter(); f.type="bandpass"; f.frequency.value=3300; f.Q.value=1.1;
+  var g=c.createGain(); g.gain.value=.028;
+  n.connect(f); f.connect(g); g.connect(c.destination); n.start(t);
+}
+function sweep(){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime;
+  var n=c.createBufferSource(); n.buffer=noise(c,.9,1);
+  var f=c.createBiquadFilter(); f.type="bandpass"; f.Q.value=6;
+  f.frequency.setValueAtTime(500,t); f.frequency.exponentialRampToValueAtTime(2600,t+.9);
+  var g=c.createGain(); g.gain.setValueAtTime(.0001,t);
+  g.gain.linearRampToValueAtTime(.03,t+.3); g.gain.exponentialRampToValueAtTime(.0001,t+.9);
+  n.connect(f); f.connect(g); g.connect(c.destination); n.start(t);
+}
+function zap(){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime;
+  var o=c.createOscillator(),g=c.createGain();
+  o.type="sawtooth"; o.frequency.setValueAtTime(920,t);
+  o.frequency.exponentialRampToValueAtTime(120,t+.18);
+  g.gain.setValueAtTime(.11,t); g.gain.exponentialRampToValueAtTime(.0001,t+.24);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.26);
+}
+function thunk(){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime;
+  var o=c.createOscillator(),g=c.createGain();
+  o.type="sine"; o.frequency.setValueAtTime(220,t);
+  o.frequency.exponentialRampToValueAtTime(58,t+.16);
+  g.gain.setValueAtTime(.5,t); g.gain.exponentialRampToValueAtTime(.0001,t+.3);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.32);
+  var n=c.createBufferSource(); n.buffer=noise(c,.06,5);
+  var ng=c.createGain(); ng.gain.value=.18;
+  n.connect(ng); ng.connect(c.destination); n.start(t);
+}
+
 /* ================================================================ VOICE */
 var VOICES=[];
 function loadVoices(){ try{VOICES=speechSynthesis.getVoices()||[]}catch(e){VOICES=[]} }
@@ -648,37 +698,28 @@ function drainVoice(){
 
 /* The Bureau speaks only when you have gone quiet, and never during the
    finale. No two lines in a row are the same. */
-var BARKS=["LEGAL.","BICEPS.","COMPLIANCE CONFIRMED.","PROXIMITY VIOLATION.",
-  "SLEEVE INTEGRITY CRITICAL.","DO NOT APPROACH.","THE ARMS ARE OPERATIONAL.",
-  "MAXIMUM SWOLE.","THIS IS NOT A DRILL.","THERE IS NO SAFE DISTANCE.",
-  "ARMS DETECTED.","AWAITING YOUR SIGNATURE.","BICEPS. BICEPS.",
-  "YOU ARE NEAR SOMEONE WHO IS SWOLE, BRO.","STAND BY."];
-var lastBark=-1, lastAct=Date.now(), finaleRunning=false, idleTimer=null;
-function markActive(){ lastAct=Date.now(); }
-["pointerdown","keydown","wheel","touchstart"].forEach(function(ev){
-  addEventListener(ev,markActive,{passive:true});
-});
-addEventListener("scroll",markActive,{passive:true});
-
-function startBarks(){
-  if(idleTimer) return;
-  idleTimer=setInterval(function(){
-    if(finaleRunning||!armed||vBusy||VQ.length) return;
-    if(Date.now()-lastAct < 11000) return;      /* only once you have paused */
-    var i=Math.floor(Math.random()*BARKS.length);
-    if(i===lastBark) i=(i+1)%BARKS.length;
-    lastBark=i;
-    say(BARKS[i]);
-    lastAct=Date.now();                          /* space them out */
-  },4000);
+/* The Bureau says exactly one thing, once, at the moment it matters.
+   Everything else it communicates through sound. */
+var finaleRunning=false, ambTimer=null, ambStep=0;
+function startAmbient(){
+  if(ambTimer) return;
+  ambTimer=setInterval(function(){
+    if(finaleRunning||!armed||muted) return;
+    ambStep++;
+    var r=ambStep%4;
+    if(r===0) blip();
+    else if(r===1) hiss();
+    else if(r===2) blip();
+    else sweep();
+  },5200);
 }
 
 /* first gesture unlocks audio + speech */
 var armed=false;
 function arm(){
   if(armed) return; armed=true;
-  ensureAudio(); startBarks();
-  say("BUREAU ONLINE. DO NOT APPROACH.",{pitch:.2,rate:.8,priority:true,hold:3000});
+  ensureAudio(); startAmbient();
+  sweep(); beep(520,.05,.07,"square"); beep(780,.16,.09,"square"); blip();
 }
 ["pointerdown","keydown","touchstart"].forEach(function(ev){
   document.addEventListener(ev,arm,{once:false,passive:true});
@@ -757,8 +798,7 @@ function inkPad(wrap,canvas,width,color){
     e.preventDefault(); drawing=true;
     if(!dirty){
       dirty=true; wrap.classList.add("inked");
-      beep(680,0,.07,"sine"); beep(1020,.07,.09,"sine");
-      say("MARK ACCEPTED.");
+      beep(680,0,.07,"sine"); beep(1020,.07,.09,"sine"); blip();
     }
     canvas.setPointerCapture(e.pointerId); last=pos(e);
     ctx.beginPath(); ctx.arc(last.x,last.y,width/2,0,TAU); ctx.fillStyle=color; ctx.fill();
@@ -776,7 +816,7 @@ function inkPad(wrap,canvas,width,color){
   };
 }
 var sig=inkPad($("#sigwrap"),$("#sigc"),2.8,"#00F0FF");
-$("#clr").addEventListener("click",function(){sig.clear();beep(300,0,.12,"square");say("SIGNATURE CLEARED.",{priority:true})});
+$("#clr").addEventListener("click",function(){sig.clear();zap()});
 
 /* ------------------------------------------------------------ validation */
 function validate(){
@@ -914,7 +954,7 @@ function detonate(){
     if(i<BOOT.length){
       var d=document.createElement("div"); d.innerHTML=BOOT[i]; host.appendChild(d);
       beep(440+i*95,0,.055);
-      if(i===0||i===BOOT.length-1) say(BOOTV[i],{pitch:.15,rate:.95,priority:true});
+      if(i===BOOT.length-1){ zap(); thunk(); }
       i++; setTimeout(next,reduced?60:340);
     } else { setTimeout(go,reduced?60:520); }
   })();
@@ -927,7 +967,7 @@ function detonate(){
     fxInit(); FX.last=performance.now();
     siren(); boom(1);
     $("#klaxon").classList.add("on");
-    say("COMPLIANCE CONFIRMED.",{pitch:.1,rate:.8,priority:true,hold:2400});
+    sweep();
 
     $("#flash").animate([{opacity:0},{opacity:1,offset:.05},{opacity:.6,offset:.25},{opacity:0}],
       {duration:900,easing:"ease-out"});
@@ -959,15 +999,17 @@ function detonate(){
 
     setTimeout(function(){$("#klaxon").classList.remove("on")},2600);
 
+    /* the only thing the Bureau ever says out loud. It waits for the boom to
+       clear so nothing steps on it, and nothing after it is allowed to speak. */
     setTimeout(function(){
       say("YOU ACKNOWLEDGE THAT YOU ARE NEAR SOMEONE WHO IS SWOLE, BRO.",
-          {pitch:.15,rate:.82,priority:true,hold:4200});
-    },reduced?80:700);
+          {pitch:.08,rate:.74,priority:true,hold:5600});
+    },reduced?80:2000);
 
     /* EXECUTED slam */
     setTimeout(function(){
       var sl=$("#slam"); sl.classList.add("on");
-      boom(.7); say("EXECUTED.",{pitch:.05,rate:.7,priority:true,hold:2000});
+      boom(.7); thunk();
       setTimeout(function(){ sl.classList.remove("on"); },1500);
     },reduced?150:1500);
 
@@ -979,7 +1021,7 @@ function detonate(){
       $("#after").classList.add("on");
       $("#after").scrollIntoView({behavior:reduced?"auto":"smooth",block:"center"});
       runScore();
-      say("YOU ARE NEAR SOMEONE WHO IS SWOLE, BRO.",{pitch:.2,rate:.85,priority:true,hold:3600});
+      blip();
     },reduced?300:3100);
   }
 }
@@ -996,7 +1038,7 @@ function runScore(){
     } else {
       $("#rank").textContent="RANK: S++";
       beep(1046,0,.16,"square"); beep(1318,.10,.16,"square"); beep(1568,.20,.34,"square");
-      say("RANK. S PLUS PLUS.",{pitch:.3,rate:.8,priority:true,hold:2600});
+      blip();
     }
   })(start);
 }
@@ -1006,14 +1048,14 @@ $("#go").addEventListener("click",function(){
   var bad=validate();
   var err=$("#err");
   if(bad){
-    err.textContent=bad.msg; say(bad.v,{pitch:.1,rate:.85,priority:true,hold:2600});
+    err.textContent=bad.msg; zap();
     if(!reduced) $("#doc").animate([{transform:"translateX(0)"},{transform:"translateX(-12px)"},
       {transform:"translateX(12px)"},{transform:"translateX(0)"}],{duration:280});
-    beep(110,0,.2,"sawtooth");
+    beep(110,.12,.24,"sawtooth");
     return;
   }
   err.textContent=""; this.disabled=true;
-  finaleRunning=true;
+  finaleRunning=true; thunk();
   detonate();
 });
 
@@ -1027,7 +1069,7 @@ $("#again").addEventListener("click",function(){
   doc.animate([{opacity:0,transform:"scale(.88)"},{opacity:1,transform:"scale(1)"}],
     {duration:600,easing:"cubic-bezier(.2,.9,.3,1)"});
   doc.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
-  say("DOCUMENT REASSEMBLED.",{pitch:.2,priority:true});
+  sweep(); blip();
 });
 
 /* --------------------------------------------------------------- download */
@@ -1103,7 +1145,7 @@ $("#dl").addEventListener("click",function(){
     var a=document.createElement("a");
     a.download="BGP-1147_Executed_Waiver.png";
     a.href=c.toDataURL("image/png"); a.click();
-    say("COPY DISPATCHED.",{pitch:.25,priority:true});
+    blip(); beep(1180,.08,.12,"sine");
   }
 });
 })();
