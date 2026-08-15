@@ -3,406 +3,439 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FORM BGP-1147 &mdash; THE BICEPS PROXIMITY WAIVER</title>
+<title>FORM BGP-1147 &mdash; BICEPS PROXIMITY WAIVER</title>
 </head>
 <body>
 
 <style>
 :root{
-  --night:#0B0908;
-  --theater:#151110;
-  --parch:#E6D8B4;
-  --parch2:#D9C79B;
-  --parchdk:#C4AF7F;
-  --ink:#241A12;
-  --ink2:#3B2C1E;
-  --blood:#8E1616;
-  --blood2:#C0281F;
-  --gold:#C9A227;
-  --gold2:#E3C05A;
-  --dust:#8B7A58;
-  --sub:#F5E050;
-  --serif:Georgia,"Times New Roman",Times,serif;
-  --mono:ui-monospace,"Courier New",Courier,monospace;
+  --void:#0a0118;
+  --deep:#150a2e;
+  --panel:#1a0d33;
+  --panel2:#241145;
+  --magenta:#FF1E8E;
+  --cyan:#00F0FF;
+  --laser:#B026FF;
+  --sun:#FFD319;
+  --orange:#FF6B00;
+  --chrome:#EFEAFF;
+  --dim:#8B7BB8;
+  --mono:ui-monospace,"Cascadia Mono","Consolas","Courier New",monospace;
   --display:Impact,"Haettenschweiler","Arial Narrow Bold","Arial Black",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{
-  background:var(--night);color:var(--ink);
-  font-family:var(--serif);font-size:16px;line-height:1.55;
+  background:var(--void);
+  color:var(--chrome);
+  font-family:var(--mono);
+  font-size:15px;line-height:1.5;
   overflow-x:hidden;min-height:100vh;
-  padding:16px 10px 44px;
-  display:flex;flex-direction:column;align-items:center;position:relative;
+  padding:44px 10px 40px;
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;
 }
 
-/* ========================================================== FILM STOCK */
-#grain{position:fixed;inset:-60px;z-index:56;pointer-events:none;opacity:.42;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;animation:grainshift .42s steps(3) infinite}
-@keyframes grainshift{
-  0%{transform:translate(0,0)}33%{transform:translate(-14px,9px)}66%{transform:translate(11px,-12px)}
-  100%{transform:translate(0,0)}}
-#scratches{position:fixed;inset:0;z-index:57;pointer-events:none;opacity:.5}
-#vig{position:fixed;inset:0;z-index:58;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 45%,transparent 38%,rgba(0,0,0,.9) 100%)}
-#flick{position:fixed;inset:0;z-index:55;pointer-events:none;background:#F2E2B8;
-  mix-blend-mode:overlay;opacity:.05;animation:flick .14s steps(2) infinite}
-@keyframes flick{50%{opacity:.11}}
-#burn{position:fixed;top:22px;right:26px;width:52px;height:52px;z-index:59;pointer-events:none;
-  border-radius:50%;opacity:0;
-  background:radial-gradient(circle,rgba(255,240,200,.95) 0 34%,rgba(180,90,20,.75) 46%,transparent 62%)}
-#burn.on{animation:burnflash .55s}
-@keyframes burnflash{0%,100%{opacity:0}25%{opacity:1}55%{opacity:.35}75%{opacity:.9}}
-
-/* ============================================================ SUBTITLES */
-#subs{position:fixed;left:0;right:0;bottom:16px;z-index:70;text-align:center;pointer-events:none;
-  padding:0 14px}
-#subs span{display:inline-block;font-family:var(--serif);font-weight:700;
-  font-size:clamp(15px,4.4vw,22px);letter-spacing:.02em;color:var(--sub);text-transform:uppercase;
-  text-shadow:2px 2px 0 #000,-2px 2px 0 #000,2px -2px 0 #000,-2px -2px 0 #000,0 0 12px rgba(0,0,0,.9);
-  line-height:1.25;max-width:820px}
-
-/* ============================================================ HUD / REEL */
-.hud{position:fixed;top:10px;left:10px;z-index:61;display:flex;flex-direction:column;gap:5px}
-.hud button{background:rgba(11,9,8,.86);border:1px solid var(--gold);color:var(--gold);
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;padding:6px 8px;cursor:pointer;
-  text-transform:uppercase}
-.hud button:hover{background:var(--gold);color:var(--night)}
-.reel{position:fixed;bottom:10px;left:10px;z-index:61;font-family:var(--mono);font-size:9px;
-  color:var(--dust);letter-spacing:.14em}
-
-/* =========================================================== OPENING CARD */
-#opening{position:fixed;inset:0;z-index:95;background:var(--night);display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:22px}
-#opening.gone{animation:openfade .9s forwards}
-@keyframes openfade{to{opacity:0;visibility:hidden}}
-#opening .pres{font-family:var(--serif);font-style:italic;font-size:clamp(13px,3.6vw,18px);
-  color:var(--parchdk);letter-spacing:.22em;text-transform:uppercase;
-  animation:fadein .7s both}
-#opening .big{font-family:var(--display);font-size:clamp(38px,12vw,88px);line-height:.86;
-  color:var(--blood2);text-transform:uppercase;letter-spacing:.01em;
-  text-shadow:4px 4px 0 #000,0 0 26px rgba(192,40,31,.6);
-  animation:zoompunch .5s cubic-bezier(.15,1.5,.35,1) .55s both}
-#opening .sub{font-family:var(--serif);font-size:clamp(12px,3.2vw,16px);color:var(--gold);
-  letter-spacing:.18em;text-transform:uppercase;animation:fadein .6s 1.15s both}
-@keyframes fadein{from{opacity:0}}
-@keyframes zoompunch{0%{transform:scale(4.2) rotate(-6deg);opacity:0}
-  70%{transform:scale(.93) rotate(1.5deg);opacity:1}100%{transform:scale(1) rotate(0)}}
-
-/* ================================================================ SCROLL */
-.doc{width:100%;max-width:600px;position:relative;z-index:2;
+/* ============================================================ BACKDROP */
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 120% 70% at 50% 68%,#3a0f5c 0%,#1a0733 40%,var(--void) 75%)}
+#sun{position:fixed;left:50%;top:9vh;transform:translateX(-50%);z-index:0;pointer-events:none;
+  width:min(78vw,440px);aspect-ratio:1;border-radius:50%;
+  background:linear-gradient(180deg,var(--sun) 0%,var(--orange) 42%,var(--magenta) 78%,var(--laser) 100%);
+  -webkit-mask:linear-gradient(#000,#000) top/100% 46% no-repeat,
+        repeating-linear-gradient(180deg,#000 0 9px,transparent 9px 17px) bottom/100% 54% no-repeat;
+  mask:linear-gradient(#000,#000) top/100% 46% no-repeat,
+       repeating-linear-gradient(180deg,#000 0 9px,transparent 9px 17px) bottom/100% 54% no-repeat;
+  opacity:.42;filter:blur(.4px);animation:sunthrob 3.6s ease-in-out infinite}
+@keyframes sunthrob{50%{opacity:.62;filter:blur(1.4px)}}
+#grid{position:fixed;left:-60%;right:-60%;bottom:-14vh;height:64vh;z-index:0;pointer-events:none;
   background:
-    linear-gradient(180deg,rgba(0,0,0,.05),transparent 12%,transparent 88%,rgba(0,0,0,.07)),
-    radial-gradient(ellipse at 22% 12%,rgba(160,130,80,.20),transparent 55%),
-    radial-gradient(ellipse at 78% 82%,rgba(140,110,60,.22),transparent 58%),
-    linear-gradient(160deg,var(--parch),var(--parch2) 55%,var(--parchdk));
-  border:2px solid var(--ink);
-  box-shadow:0 0 0 5px var(--blood),0 0 0 7px var(--ink),0 0 0 9px var(--gold),
-    0 26px 70px rgba(0,0,0,.9);
-  color:var(--ink)}
-.rule{height:7px;background:repeating-linear-gradient(90deg,
-  var(--blood) 0 16px,var(--ink) 16px 20px,var(--gold) 20px 24px,var(--ink) 24px 28px)}
+    repeating-linear-gradient(90deg,transparent 0 60px,rgba(0,240,255,.55) 60px 62px),
+    repeating-linear-gradient(0deg,transparent 0 60px,rgba(255,30,142,.5) 60px 62px);
+  transform:perspective(300px) rotateX(74deg);transform-origin:50% 100%;
+  opacity:.55;animation:gridrun .9s linear infinite}
+@keyframes gridrun{to{background-position:0 0,0 62px}}
+#stars{position:fixed;inset:0 0 40% 0;z-index:0;pointer-events:none;opacity:.7}
+#amb{position:fixed;inset:0;z-index:1;pointer-events:none}
 
-.head{padding:16px 18px 12px;text-align:center;border-bottom:3px double var(--ink)}
-.presents{font-style:italic;font-size:12px;letter-spacing:.2em;color:var(--blood);
-  text-transform:uppercase}
-.agency{font-family:var(--display);font-size:clamp(17px,5vw,25px);line-height:1;margin-top:7px;
-  text-transform:uppercase;color:var(--ink);text-wrap:balance}
-.bureau{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--blood);margin-top:8px}
-.formno{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dust);margin-top:4px}
+/* ============================================================= OVERLAYS */
+.scan{position:fixed;inset:0;z-index:56;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(0,0,0,.34) 0 1px,transparent 1px 3px);opacity:.6}
+.vig{position:fixed;inset:0;z-index:57;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%,transparent 42%,rgba(4,0,12,.86) 100%)}
+.vhs{position:fixed;left:0;right:0;height:78px;z-index:58;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.16),rgba(0,240,255,.12),transparent);
+  mix-blend-mode:screen}
+.vhs.run{animation:vhsdrop 1.05s linear}
+@keyframes vhsdrop{0%{opacity:.85;top:-80px}100%{opacity:.5;top:104vh}}
+#klaxon{position:fixed;inset:0;z-index:59;pointer-events:none;box-shadow:inset 0 0 0 rgba(255,30,142,0)}
+#klaxon.on{animation:klax .48s infinite}
+@keyframes klax{
+  0%,100%{box-shadow:inset 0 0 90px rgba(255,30,142,.2)}
+  50%{box-shadow:inset 0 0 240px rgba(255,30,142,.85)}}
 
-.title{padding:22px 14px 18px;text-align:center;border-bottom:3px double var(--ink);position:relative;
-  background:radial-gradient(ellipse at 50% 50%,rgba(142,22,22,.13),transparent 72%)}
-.title h1{font-family:var(--display);font-size:clamp(36px,11.5vw,66px);line-height:.85;
-  text-transform:uppercase;color:var(--blood);letter-spacing:-.005em;text-wrap:balance;
-  text-shadow:3px 3px 0 var(--ink),5px 5px 0 var(--gold)}
-.title .tag{margin-top:12px;font-style:italic;font-size:clamp(12px,3.4vw,16px);color:var(--ink2);
-  letter-spacing:.05em}
-.title .stars{margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--blood)}
+/* ticker */
+.ticker{position:fixed;top:0;left:0;right:0;height:26px;z-index:60;overflow:hidden;
+  background:linear-gradient(90deg,var(--magenta),var(--laser),var(--cyan));
+  border-bottom:2px solid #000;display:flex;align-items:center}
+.ticker div{white-space:nowrap;font-family:var(--display);font-size:15px;letter-spacing:.06em;
+  color:#0a0118;animation:slide 22s linear infinite;padding-left:100%}
+@keyframes slide{to{transform:translateX(-100%)}}
 
-.notice{padding:12px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.5;
-  background:rgba(142,22,22,.09);border-bottom:2px solid var(--ink);color:var(--ink2)}
-.notice b{color:var(--blood);letter-spacing:.06em}
+.hud{position:fixed;top:32px;right:8px;z-index:61;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.hud button{background:rgba(10,1,24,.86);border:1px solid var(--cyan);color:var(--cyan);
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;padding:6px 8px;cursor:pointer;text-transform:uppercase}
+.hud button:hover{background:var(--cyan);color:#0a0118}
+.hud .tc{font-size:9px;color:var(--magenta);letter-spacing:.12em;
+  background:rgba(10,1,24,.86);padding:4px 7px;border:1px solid var(--magenta)}
 
-/* chapter cards */
-.chap{margin:0;padding:9px 18px;background:var(--ink);color:var(--parch);
-  font-family:var(--display);font-size:15px;letter-spacing:.09em;text-transform:uppercase;
-  display:flex;align-items:baseline;gap:10px}
-.chap em{font-style:normal;color:var(--gold);font-size:12px;letter-spacing:.16em}
+/* ================================================================= DOC */
+.doc{width:100%;max-width:580px;position:relative;z-index:2;
+  background:linear-gradient(180deg,var(--panel),#12072a);
+  border:3px solid var(--magenta);
+  box-shadow:0 0 0 1px #000, 0 0 28px rgba(255,30,142,.6), 0 0 70px rgba(176,38,255,.4), 0 30px 70px rgba(0,0,0,.8)}
+.stripes{height:16px;background:repeating-linear-gradient(135deg,
+  var(--sun) 0 14px,#0a0118 14px 28px,var(--magenta) 28px 42px,#0a0118 42px 56px);
+  background-size:79.2px 79.2px;animation:march 1.1s linear infinite}
+@keyframes march{to{background-position:79.2px 0}}
 
-.body{padding:16px 18px}
-.ct{font-size:15.5px;line-height:1.62;margin-top:10px}
-.risks{list-style:none;margin-top:11px;display:flex;flex-direction:column;gap:9px}
-.risks li{font-size:15.5px;display:flex;gap:11px;line-height:1.5}
-.risks b{font-family:var(--display);color:var(--blood);font-size:15px;flex:none;padding-top:1px}
-.redact{background:var(--ink);color:transparent;cursor:pointer;transition:.25s;user-select:none}
-.redact.open{background:transparent;color:var(--blood);font-style:italic}
+.head{padding:14px 16px 12px;border-bottom:2px solid var(--laser);position:relative}
+.agency{font-family:var(--display);font-size:clamp(18px,5.4vw,26px);line-height:.97;
+  text-transform:uppercase;color:var(--chrome);text-wrap:balance;
+  text-shadow:2px 2px 0 var(--magenta),-1px -1px 0 var(--cyan)}
+.bureau{color:var(--sun);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;margin-top:8px;
+  text-shadow:0 0 8px rgba(255,211,25,.8)}
+.formno{color:var(--dim);font-size:11px;letter-spacing:.1em;margin-top:3px}
+.rec{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:5px;
+  font-size:9px;letter-spacing:.14em;color:var(--magenta)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--magenta);
+  box-shadow:0 0 10px var(--magenta);animation:blink .8s steps(1) infinite}
+@keyframes blink{50%{opacity:.1}}
 
-/* diagram */
-.diagram{margin:16px 0;border:2px solid var(--ink);background:rgba(255,250,235,.42);padding:12px}
-.dlabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink2)}
-.dwrap{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:9px}
-.bar{height:16px;background:rgba(36,26,18,.1);border:2px solid var(--ink);position:relative;overflow:hidden}
-.fill{position:absolute;inset:0 auto 0 0;width:95%;
-  background:repeating-linear-gradient(135deg,var(--blood) 0 8px,var(--blood2) 8px 16px)}
-.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;
-  color:var(--dust);margin-top:5px}
-.threat{text-align:center;padding:8px 13px;border:3px double var(--blood);background:rgba(142,22,22,.1)}
-.threat span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--ink2)}
-.threat strong{font-family:var(--display);font-size:27px;color:var(--blood);line-height:1.05}
+.title{padding:20px 12px 18px;text-align:center;border-bottom:3px solid var(--cyan);
+  background:radial-gradient(ellipse at 50% 120%,rgba(176,38,255,.5),transparent 70%);position:relative;overflow:hidden}
+.title h1{font-family:var(--display);font-size:clamp(34px,11.5vw,62px);line-height:.85;
+  text-transform:uppercase;letter-spacing:-.01em;position:relative;
+  background:linear-gradient(180deg,#fff 0%,var(--sun) 34%,var(--orange) 56%,var(--magenta) 82%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(3px 3px 0 #000) drop-shadow(0 0 16px rgba(255,30,142,.9));
+  animation:tglitch 5.5s steps(1) infinite}
+@keyframes tglitch{
+  0%,92%,100%{transform:none}
+  93%{transform:translate(-3px,1px) skewX(-6deg)}
+  95%{transform:translate(4px,-2px) skewX(5deg)}
+  97%{transform:translate(-2px,0)}}
+.title p{margin-top:11px;font-size:10.5px;letter-spacing:.22em;color:var(--cyan);
+  text-transform:uppercase;text-shadow:0 0 10px var(--cyan)}
+.title .bolt{position:absolute;inset:0;pointer-events:none;opacity:0}
+.title .bolt.on{animation:boltflash .3s}
+@keyframes boltflash{0%,100%{opacity:0}20%{opacity:1}40%{opacity:.2}60%{opacity:.9}}
 
-/* oath */
-.oath{border:3px double var(--blood);background:rgba(142,22,22,.08);padding:14px;margin:18px 0}
-.oath h3{font-family:var(--display);font-size:16.5px;color:var(--blood);text-transform:uppercase;
-  line-height:1.12;letter-spacing:.02em}
-.oath p{font-size:14.5px;margin-top:8px;line-height:1.55}
+.notice{padding:12px 16px;font-size:13px;line-height:1.5;
+  background:repeating-linear-gradient(90deg,#2a0a1f 0 12px,#240a1c 12px 24px);
+  border-bottom:2px solid var(--magenta);color:#E0C9F0}
+.notice b{color:var(--sun);letter-spacing:.08em}
 
-/* seal / QR */
-.seal{margin:18px 0;border:2px solid var(--ink);background:rgba(255,250,235,.4);padding:13px;
-  display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:center}
-.seal .qrbox{background:#fff;padding:7px;border:3px double var(--ink);flex:none}
-.seal .qrbox img{display:block;width:106px;height:106px;image-rendering:pixelated}
-.seal h3{font-family:var(--display);font-size:17px;color:var(--ink);text-transform:uppercase;
-  letter-spacing:.02em}
-.seal p{font-size:13.5px;margin-top:7px;line-height:1.5}
-.seal .sn{font-family:var(--mono);font-size:10px;color:var(--dust);margin-top:8px;letter-spacing:.09em}
+/* placard */
+.placard{display:grid;grid-template-columns:1fr auto;gap:12px;padding:14px 16px;
+  border-bottom:2px dashed var(--laser);align-items:center}
+.meterlabel{font-size:11px;letter-spacing:.16em;color:var(--cyan);text-transform:uppercase}
+.bar{height:20px;margin-top:8px;background:#0a0118;border:2px solid var(--laser);position:relative;overflow:hidden}
+.fill{position:absolute;inset:0 auto 0 0;width:96%;
+  background:linear-gradient(90deg,var(--cyan),var(--sun) 40%,var(--orange) 65%,var(--magenta));
+  box-shadow:0 0 18px var(--magenta);animation:jit .16s steps(2) infinite}
+@keyframes jit{50%{transform:translateX(-4px)}}
+.ticks{display:flex;justify-content:space-between;font-size:8.5px;color:var(--dim);margin-top:4px}
+.threat{text-align:center;padding:9px 13px;border:3px solid var(--magenta);background:#2a0618;
+  box-shadow:0 0 22px rgba(255,30,142,.75);animation:threatpulse 1.2s ease-in-out infinite}
+@keyframes threatpulse{50%{box-shadow:0 0 44px rgba(255,30,142,1);border-color:var(--cyan)}}
+.threat span{display:block;font-size:8.5px;letter-spacing:.18em;color:var(--cyan)}
+.threat strong{font-family:var(--display);font-size:30px;color:var(--sun);line-height:1;
+  text-shadow:0 0 14px var(--orange),2px 2px 0 var(--magenta)}
 
-/* execute */
-.exec{border-top:3px double var(--ink);background:rgba(36,26,18,.06);padding:18px}
-.exech{font-family:var(--display);font-size:22px;color:var(--blood);text-transform:uppercase;
-  letter-spacing:.03em;margin-bottom:5px}
-.exsub{font-style:italic;font-size:13.5px;color:var(--ink2);margin-bottom:13px}
-.field>span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;
-  color:var(--ink2);text-transform:uppercase;margin-bottom:7px}
-.sigwrap{background:rgba(255,252,242,.72);border:2px dashed var(--ink);height:150px;position:relative;
+/* clauses */
+.body{padding:14px 16px}
+.clause{margin-bottom:15px}
+.ch{font-family:var(--display);font-size:18px;letter-spacing:.03em;text-transform:uppercase;
+  color:var(--cyan);display:flex;align-items:baseline;gap:9px;
+  text-shadow:0 0 12px rgba(0,240,255,.85),2px 2px 0 rgba(255,30,142,.6)}
+.ch em{font-style:normal;color:var(--magenta);font-size:14px}
+.ct{font-size:14.5px;line-height:1.6;color:#D6C9EE;margin-top:6px}
+.risks{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:6px}
+.risks li{font-size:14.5px;color:#D6C9EE;display:flex;gap:10px;line-height:1.5}
+.risks b{color:var(--sun);font-size:13px;flex:none;padding-top:1px;text-shadow:0 0 8px var(--orange)}
+.redact{background:#0a0118;color:transparent;cursor:pointer;transition:.25s;user-select:none;
+  box-shadow:0 0 0 1px var(--laser)}
+.redact.open{background:transparent;color:var(--cyan);box-shadow:none;text-shadow:0 0 8px var(--cyan)}
+
+/* ack */
+.ack{border:3px solid var(--sun);background:linear-gradient(135deg,#2e1206,#3d1a08);padding:13px;margin:16px 0;
+  box-shadow:0 0 26px rgba(255,211,25,.45)}
+.ack h3{font-family:var(--display);font-size:15.5px;color:var(--sun);text-transform:uppercase;
+  line-height:1.1;text-shadow:0 0 10px var(--orange)}
+.ack p{font-size:13.5px;color:#F0D9B8;margin-top:7px;line-height:1.5}
+.pad{background:#0a0118;border:2px dashed var(--sun);width:106px;height:90px;position:relative;
+  touch-action:none;cursor:crosshair;flex:none}
+.pad canvas{display:block;width:100%;height:100%}
+.pad label{position:absolute;left:0;right:0;bottom:3px;text-align:center;font-size:8.5px;
+  letter-spacing:.13em;color:var(--sun);pointer-events:none}
+
+/* QR credential */
+.cred{margin:16px 0;border:3px solid var(--cyan);background:linear-gradient(135deg,#04202a,#071a33);
+  padding:13px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;
+  box-shadow:0 0 26px rgba(0,240,255,.5)}
+.cred .qrbox{background:#fff;padding:7px;border:2px solid #0a0118;flex:none;
+  box-shadow:0 0 20px rgba(0,240,255,.9)}
+.cred .qrbox img{display:block;width:104px;height:104px;image-rendering:pixelated}
+.cred h3{font-family:var(--display);font-size:16px;color:var(--cyan);text-transform:uppercase;
+  text-shadow:0 0 12px var(--cyan)}
+.cred p{font-size:12.5px;color:#B9E8F5;margin-top:7px;line-height:1.45}
+.cred .sn{font-size:10px;color:var(--dim);margin-top:7px;letter-spacing:.1em}
+
+/* exec */
+.exec{border-top:3px solid var(--magenta);background:linear-gradient(180deg,#1b0a34,#0d0420);padding:16px}
+.exech{font-family:var(--display);font-size:20px;color:var(--sun);text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:13px;text-shadow:0 0 12px var(--orange),2px 2px 0 var(--magenta)}
+.field{margin-bottom:13px}
+.field>span{display:block;font-size:11px;letter-spacing:.16em;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:6px}
+input[type=text]{width:100%;background:#0a0118;border:2px solid var(--laser);color:var(--cyan);
+  font-family:var(--mono);font-size:16px;padding:12px;outline:none}
+input[type=text]:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255,30,142,.3),0 0 20px rgba(255,30,142,.5)}
+.sigwrap{background:#0a0118;border:2px dashed var(--cyan);height:150px;position:relative;
   touch-action:none;cursor:crosshair}
 .sigwrap canvas{display:block;width:100%;height:100%}
 .sigwrap .hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:rgba(36,26,18,.32);
-  pointer-events:none;text-transform:uppercase}
+  font-size:13px;letter-spacing:.14em;color:#4b3a6b;pointer-events:none;text-transform:uppercase}
 .sigwrap.inked .hint{display:none}
-.clr{display:block;width:100%;margin-top:11px;background:none;border:2px solid var(--ink);
-  color:var(--ink2);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;padding:11px;
+.row{display:flex;gap:10px;align-items:flex-end}
+.row .field{flex:1;margin-bottom:0}
+.clr{display:block;width:100%;margin-top:10px;background:none;border:2px solid var(--laser);
+  color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.1em;padding:11px 12px;
   cursor:pointer;text-transform:uppercase}
-.clr:hover{background:var(--ink);color:var(--parch)}
-.go{width:100%;margin-top:16px;padding:24px 12px;cursor:pointer;
-  font-family:var(--display);font-size:clamp(26px,8vw,42px);text-transform:uppercase;letter-spacing:.02em;
-  color:var(--parch);background:var(--blood);border:3px solid var(--ink);
-  box-shadow:0 0 0 4px var(--gold),0 8px 0 var(--ink);
-  text-shadow:3px 3px 0 rgba(0,0,0,.55);animation:strikepulse 1.5s ease-in-out infinite}
-@keyframes strikepulse{50%{box-shadow:0 0 0 4px var(--gold2),0 8px 0 var(--ink),0 0 42px rgba(192,40,31,.75)}}
-.go:active{transform:translateY(6px);box-shadow:0 0 0 4px var(--gold),0 2px 0 var(--ink)}
-.go:disabled{opacity:.55;animation:none;cursor:default}
-.err{margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--blood);min-height:17px;
-  text-transform:uppercase;letter-spacing:.04em}
+.clr:hover{border-color:var(--magenta);color:var(--magenta)}
 
-.foot{padding:12px 18px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;
-  gap:10px;font-family:var(--mono);font-size:10px;color:var(--dust);letter-spacing:.07em}
-.foot b{color:var(--blood)}
-.chop{position:absolute;top:120px;right:-10px;transform:rotate(9deg);z-index:3;
-  border:3px solid var(--blood);color:var(--blood);font-family:var(--display);font-size:13px;
-  letter-spacing:.1em;padding:6px 9px;opacity:.72;pointer-events:none;text-transform:uppercase;
-  background:rgba(230,216,180,.5)}
+.go{width:100%;margin-top:18px;padding:22px 12px;cursor:pointer;position:relative;
+  font-family:var(--display);font-size:clamp(24px,7.6vw,38px);text-transform:uppercase;letter-spacing:.02em;
+  color:#0a0118;border:4px solid #0a0118;
+  background:linear-gradient(90deg,var(--sun),var(--orange) 35%,var(--magenta) 70%,var(--laser));
+  background-size:220% 100%;
+  box-shadow:0 0 0 3px var(--sun),0 0 44px rgba(255,107,0,.8);
+  animation:throb .9s ease-in-out infinite, huerun 3s linear infinite}
+@keyframes throb{50%{box-shadow:0 0 0 3px var(--cyan),0 0 76px rgba(0,240,255,.95)}}
+@keyframes huerun{to{background-position:220% 0}}
+.go:active{transform:translateY(3px)}
+.go:disabled{opacity:.5;animation:none;cursor:default}
+.err{margin-top:11px;font-size:12px;color:var(--magenta);letter-spacing:.05em;min-height:17px;
+  text-transform:uppercase;text-shadow:0 0 8px var(--magenta)}
 
-/* ========================================================= LEADER COUNT */
-#leader{position:fixed;inset:0;z-index:88;display:none;align-items:center;justify-content:center;
-  background:rgba(8,7,6,.97)}
-#leader.on{display:flex}
-#leadcv{width:min(74vw,340px);height:min(74vw,340px)}
+.foot{padding:11px 16px;border-top:2px solid var(--laser);display:flex;justify-content:space-between;
+  gap:10px;font-size:10px;color:var(--dim);letter-spacing:.07em}
+.foot b{color:var(--magenta)}
+.stamp{position:absolute;top:112px;right:-8px;transform:rotate(14deg);border:4px double var(--magenta);
+  color:var(--magenta);font-family:var(--display);font-size:14px;letter-spacing:.08em;padding:4px 10px;
+  opacity:.75;pointer-events:none;text-transform:uppercase;text-shadow:0 0 10px var(--magenta);z-index:3}
 
-/* =============================================================== FX */
+/* ========================================================== BOOT TERMINAL */
+#term{position:fixed;inset:0;z-index:70;background:rgba(4,0,12,.96);display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:24px;
+  font-size:13.5px;color:var(--cyan);letter-spacing:.07em;text-shadow:0 0 10px var(--cyan)}
+#term.on{display:flex}
+#termlines{max-width:440px;width:100%}
+#termlines div{margin-bottom:7px}
+
+/* =============================================================== FX LAYER */
 #shards{position:fixed;inset:0;z-index:75;pointer-events:none;overflow:hidden}
 #shards .sh{position:fixed;overflow:hidden;will-change:transform,opacity}
 #fx{position:fixed;inset:0;z-index:80;pointer-events:none;display:none}
 #fx.on{display:block}
-#flash{position:fixed;inset:0;z-index:90;background:#FFF6DC;opacity:0;pointer-events:none}
+#flash{position:fixed;inset:0;z-index:90;background:#fff;opacity:0;pointer-events:none}
 #slam{position:fixed;inset:0;z-index:92;display:none;align-items:center;justify-content:center;
-  pointer-events:none;padding:18px}
+  pointer-events:none}
 #slam.on{display:flex}
-#slam b{font-family:var(--display);font-size:clamp(46px,15vw,132px);text-transform:uppercase;
-  line-height:.84;text-align:center;color:var(--blood2);
-  text-shadow:5px 5px 0 var(--ink),9px 9px 0 var(--gold),0 0 40px rgba(0,0,0,.9);
-  animation:slamin .45s cubic-bezier(.14,1.6,.3,1) both}
-@keyframes slamin{0%{transform:scale(6.5) rotate(-11deg);opacity:0}
-  62%{transform:scale(.9) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(-2deg);opacity:1}}
+#slam b{font-family:var(--display);font-size:clamp(52px,17vw,150px);text-transform:uppercase;
+  line-height:.85;text-align:center;
+  background:linear-gradient(180deg,#fff,var(--sun) 40%,var(--orange) 60%,var(--magenta));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(5px 5px 0 #0a0118) drop-shadow(0 0 30px rgba(255,30,142,1));
+  animation:slamin .5s cubic-bezier(.16,1.4,.3,1) both}
+@keyframes slamin{0%{transform:scale(7) rotate(-14deg);opacity:0}
+  60%{transform:scale(.88) rotate(3deg);opacity:1}100%{transform:scale(1) rotate(-3deg);opacity:1}}
 
-/* ========================================================== END CARD */
-#after{display:none;width:100%;max-width:600px;position:relative;z-index:100;
-  background:linear-gradient(160deg,var(--parch),var(--parchdk));
-  border:2px solid var(--ink);
-  box-shadow:0 0 0 5px var(--blood),0 0 0 7px var(--ink),0 0 0 9px var(--gold),0 26px 70px rgba(0,0,0,.9);
-  color:var(--ink)}
+/* ============================================================== AFTERMATH */
+#after{display:none;width:100%;max-width:580px;position:relative;z-index:100;
+  border:4px solid var(--cyan);background:linear-gradient(180deg,#0d0b33,#150633);
+  box-shadow:0 0 60px rgba(0,240,255,.7),0 0 120px rgba(255,30,142,.4)}
 #after.on{display:block;animation:rise .9s cubic-bezier(.2,.9,.3,1) both}
-@keyframes rise{from{opacity:0;transform:translateY(56px) scale(.92)}}
-#after .ah{padding:22px 16px;text-align:center;border-bottom:3px double var(--ink)}
-#after .ah h2{font-family:var(--display);font-size:clamp(30px,9.5vw,54px);text-transform:uppercase;
-  line-height:.88;color:var(--blood);text-shadow:3px 3px 0 var(--ink),5px 5px 0 var(--gold)}
-#after .ah p{font-style:italic;font-size:13.5px;color:var(--ink2);margin-top:11px}
-.honor{padding:18px 16px;text-align:center;border-bottom:2px solid var(--ink)}
-.honor .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--ink2);
-  text-transform:uppercase}
-.honor .val{font-family:var(--display);font-size:clamp(34px,11vw,58px);color:var(--blood);
-  line-height:1;margin-top:7px;font-variant-numeric:tabular-nums;
-  text-shadow:2px 2px 0 var(--gold)}
-.honor .rank{margin-top:10px;font-family:var(--display);font-size:23px;color:var(--ink);
-  letter-spacing:.04em}
-.receipt{padding:16px 18px}
+@keyframes rise{from{opacity:0;transform:translateY(60px) scale(.9)}}
+#after .ah{padding:20px 16px;text-align:center;border-bottom:3px solid var(--magenta);
+  background:radial-gradient(ellipse at 50% 130%,rgba(255,30,142,.55),transparent 70%)}
+#after .ah h2{font-family:var(--display);font-size:clamp(30px,9.5vw,52px);text-transform:uppercase;
+  line-height:.88;background:linear-gradient(180deg,#fff,var(--cyan) 45%,var(--laser));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(3px 3px 0 #0a0118) drop-shadow(0 0 22px rgba(0,240,255,.9))}
+#after .ah p{font-size:11.5px;letter-spacing:.18em;color:var(--sun);margin-top:10px;text-transform:uppercase}
+.score{padding:16px;text-align:center;border-bottom:2px dashed var(--laser)}
+.score .lab{font-size:10.5px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
+.score .val{font-family:var(--display);font-size:clamp(34px,11vw,58px);color:var(--sun);
+  line-height:1;margin-top:6px;text-shadow:0 0 20px var(--orange),3px 3px 0 var(--magenta);
+  font-variant-numeric:tabular-nums}
+.score .rank{margin-top:9px;font-family:var(--display);font-size:22px;color:var(--magenta);
+  text-shadow:0 0 16px var(--magenta)}
+.receipt{padding:16px}
 .rline{display:flex;justify-content:space-between;gap:12px;padding:9px 0;
-  border-bottom:1px dotted var(--ink2);font-family:var(--mono);font-size:12.5px}
-.rline span{color:var(--ink2);letter-spacing:.1em;text-transform:uppercase;flex:none}
-.rline b{font-weight:400;text-align:right;word-break:break-word}
-.sigshow{margin-top:15px;background:rgba(255,252,242,.7);border:2px solid var(--ink);padding:9px}
+  border-bottom:1px dashed var(--laser);font-size:13px}
+.rline span{color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;flex:none}
+.rline b{color:var(--chrome);font-weight:400;text-align:right;word-break:break-word}
+.sigshow{margin-top:14px;background:#0a0118;border:2px solid var(--laser);padding:8px}
 .sigshow img{display:block;width:100%;height:auto}
-.acts{display:flex;flex-direction:column;gap:11px;padding:0 18px 20px}
-.acts button{padding:16px;cursor:pointer;font-family:var(--display);font-size:20px;
-  text-transform:uppercase;letter-spacing:.03em;color:var(--parch);background:var(--blood);
-  border:3px solid var(--ink);box-shadow:0 0 0 3px var(--gold)}
-.acts button.ghost{background:none;color:var(--ink2);box-shadow:none;border-color:var(--ink)}
-.acts button.ghost:hover{background:var(--ink);color:var(--parch)}
+.acts{display:flex;flex-direction:column;gap:10px;padding:0 16px 18px}
+.acts button{padding:15px;cursor:pointer;font-family:var(--display);font-size:19px;
+  text-transform:uppercase;letter-spacing:.03em;color:#0a0118;border:3px solid #0a0118;
+  background:linear-gradient(90deg,var(--cyan),var(--sun));box-shadow:0 0 0 3px var(--cyan)}
+.acts button.ghost{background:none;color:var(--dim);box-shadow:0 0 0 2px var(--laser);
+  border-color:transparent}
+.acts button.ghost:hover{color:var(--cyan);box-shadow:0 0 0 2px var(--cyan)}
 
-:focus-visible{outline:3px solid var(--blood2);outline-offset:2px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  #grid,#sun{animation:none}
 }
 @media(max-width:540px){
-  .dwrap,.seal{grid-template-columns:1fr}
-  .seal .qrbox{justify-self:center}
+  .placard,.ack,.cred{grid-template-columns:1fr}
+  .cred .qrbox{justify-self:center}
 }
 </style>
 
-<div id="flick"></div>
-<canvas id="scratches"></canvas>
-<div id="grain"></div>
-<div id="vig"></div>
-<div id="burn"></div>
+<div id="sky"></div>
+<div id="sun"></div>
+<canvas id="stars"></canvas>
+<div id="grid"></div>
+<canvas id="amb"></canvas>
+<div class="scan"></div>
+<div class="vig"></div>
+<div class="vhs" id="vhs"></div>
+<div id="klaxon"></div>
 
+<div class="ticker"><div id="tickertext"></div></div>
 <div class="hud">
   <button id="mute" type="button">SOUND: ON</button>
-  <button id="voice" type="button">DUB: ON</button>
-</div>
-<div class="reel" id="reel">REEL 1 &middot; BGP-1147</div>
-
-<div id="opening">
-  <div class="pres">The Bureau of Guns Proximity Compliance presents</div>
-  <div class="big">Enter<br>The Guns</div>
-  <div class="sub">A Social Deployment Production</div>
+  <button id="voice" type="button">VOICE: ON</button>
+  <div class="tc" id="tc">00:00:00</div>
 </div>
 
 <div class="doc" id="doc">
-  <div class="rule"></div>
+  <div class="stripes"></div>
 
   <div class="head">
-    <div class="presents">In the tradition of the ancient masters</div>
+    <div class="rec"><span class="dot"></span>REC</div>
     <div class="agency">Office of Evening Deployment &amp; Social Operations</div>
     <div class="bureau">Bureau of Guns Proximity Compliance</div>
-    <div class="formno">FORM BGP-1147 &middot; SCROLL <span id="ctl">&mdash;</span></div>
+    <div class="formno">FORM BGP-1147 &middot; CONTROL <span id="ctl">&mdash;</span></div>
   </div>
 
   <div class="title">
-    <h1>The Biceps Proximity Waiver</h1>
-    <div class="tag">"They came for the biscuits. They stayed for the arms."</div>
-    <div class="stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+    <div class="bolt" id="bolt"></div>
+    <h1>Biceps Proximity Waiver</h1>
+    <p>Assumption of Risk &amp; Social Deployment</p>
   </div>
 
   <p class="notice"><b>NOTICE &mdash;</b> This is an obvious joke and a ceremonial social compact. Not legal advice, not prepared by an attorney, not a government form. It waives nothing whatsoever.</p>
 
-  <div class="chap"><em>Chapter I</em> The Perimeter</div>
-  <div class="body">
-    <div class="ct">"THE GUNS" means the Deploying Party's left and right biceps, jointly and severally, whether relaxed, engaged, sleeved, unsleeved, back-lit, or subjected to wholly unnecessary flexing. THE LEFT and THE RIGHT are not ranked; any attempt to rank them is void on its face. "DEPLOYMENT" means tonight.</div>
-
-    <div class="diagram">
-      <div class="dlabel">Fig. 1 &mdash; The Proximity Panic Curve</div>
-      <div class="dwrap">
-        <div>
-          <div class="bar"><div class="fill" id="fill"></div></div>
-          <div class="ticks"><span>0 FT</span><span>25</span><span>50</span><span>75</span><span>100 FT</span></div>
-          <div class="dlabel" style="margin-top:8px">Odds of involuntarily asking "bro, what do you bench?"</div>
-        </div>
-        <div class="threat"><span>Threat level</span><strong id="threat">SWOLE</strong></div>
-      </div>
+  <div class="placard">
+    <div class="meter">
+      <div class="meterlabel">Proximity panic &mdash; odds of asking "bro, what do you bench?"</div>
+      <div class="bar"><div class="fill" id="fill"></div></div>
+      <div class="ticks"><span>0 FT</span><span>25</span><span>50</span><span>75</span><span>100 FT</span></div>
     </div>
+    <div class="threat"><span>Threat level</span><strong id="threat">SWOLE</strong></div>
   </div>
 
-  <div class="chap"><em>Chapter II</em> The Enumerated Perils</div>
   <div class="body">
-    <ul class="risks">
-      <li><b>I</b><span>Involuntary admiration, unscheduled awe, and ordinary jealousy.</span></li>
-      <li><b>II</b><span>Sudden and violent reconsideration of one's current training split.</span></li>
-      <li><b>III</b><span>Spontaneous requests for protein guidance, macro advice, or a spotter.</span></li>
-      <li><b>IV</b><span>Ambient flexing, including flexing disguised as reaching for a condiment.</span></li>
-      <li><b>V</b><span>Sealed by the masters. <span class="redact" tabindex="0" role="button">TOUCH TO UNSEAL: the arms have their own weather system</span></span></li>
-      <li><b>VI</b><span>Sleeve failure. The Bureau does not compensate for sleeve failure.</span></li>
-    </ul>
-
-    <div class="oath">
-      <h3>The Close-Range Oath</h3>
-      <p>Signer accepts that literal 100-foot separation is impossible while seated at the same table, and accepts heightened close-range exposure to THE GUNS, up to and including the elbow. One signature below binds this oath in full.</p>
+    <div class="clause">
+      <div class="ch"><em>&sect;1</em> Operational Perimeter</div>
+      <div class="ct">"THE GUNS" means the Deploying Party's left and right biceps, jointly and severally, whether relaxed, engaged, sleeved, unsleeved, back-lit, or subjected to wholly unnecessary flexing. THE LEFT and THE RIGHT are not ranked; any attempt to rank them is void on its face. "DEPLOYMENT" means tonight.</div>
     </div>
 
-    <div class="seal">
-      <div class="qrbox"><img id="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdYAAAHWAQMAAADw1DoZAAAABlBMVEUKARj///+sj+p7AAADAUlEQVR42u2dS27rMAxFiecFeEneepakBRhgbUv8qA1QKsO+k4ERp7mT4ICfS1oV/fh1Clq0aNGiRfsHtKeM137dvuJyf3TouJWjyfjsft2yf/L5C+3f1koC88FHZOt3htn9vm1qhCUc+Z3R/sLVHYd6lLoZGp+lKHVxJfaVDhxcoS1zdQet/vED0qYRr/oFrtB+xpW2u6pqg6uLIc+IxCu0H9dXdrloelKg2uUhjPoK7QpX7/vBdxf6QbRVribb4fX0gxagRrXul+nL/M5of+Fq7gcDqctd8HfNa3niFdoSVx2fwzPi0TwtJuBMAVdoq/Gqt33uM+yOmSPlzjt5EG09Xp1iQctawe6L9jw4aq4024ErtJX6anigMa4ZyVDMJj3C2MK/QlvNg+eAJrlWPQ9G+MqswRXain+1qw9uYvhs7eFhLoTFK+ortLX6KkUpTSMcsx3OPD08GvEKbW0+uIfFsKWlrn47poL5Fq7QFufOAxqf6PTEp3mEMznvcIW2NMd51qwOp2ks9+m0MWN+BFyhLdRXYX/KlPO++1dwhXZpT6YNmyochzBMLfttmvZp4AptzReN7DcxZHBFZ6j0g2ir8cr7vCje++6CbTGknXfyINql+aA7pDGG3mMnK0Y9cIW2VrdbBZU2Zg5/WiKv0kSWhCu0FV80GVaeDFOPOPb6BL8dbd2/avl5HONqm/rBqVGEK7SlPDhXUG1LO1kpcqWVB7hCW9qTGb2fjwF1Wpv5YZPCFdrac6meEdNpH/0rEb4a9RXaNf8q/PZvO8cJLknOO1yhLfmiGg9KaDaxYj4o06SQ3xltYT44nUmkOhVeImkFmXiFdvV559EA2lJDzAfTThb77WjXzmdw/ypO87NCPT37RT+Idu08GR/StJg2q6Zz1fKpk3CFdu28vkDKjFCv6uOcLLhCu8DVa354Ih1eK5kwuEK7wlX6w5vzRcUff4YrtEv1lS/GjHLLa/kfw2e4QlvvB1/p1KstnbUWezLUV2gX/Sv+hwJatGjRov2/tF+GRR2mic5fsQAAAABJRU5ErkJggg==" alt="Scannable Bureau seal"></div>
+    <div class="clause">
+      <div class="ch"><em>&sect;2</em> Enumerated Risks</div>
+      <ul class="risks">
+        <li><b>01</b><span>Involuntary admiration, unscheduled awe, and ordinary jealousy.</span></li>
+        <li><b>02</b><span>Sudden and violent reconsideration of one's current training split.</span></li>
+        <li><b>03</b><span>Spontaneous requests for protein guidance, macro advice, or a spotter.</span></li>
+        <li><b>04</b><span>Ambient flexing, including flexing disguised as reaching for a condiment.</span></li>
+        <li><b>05</b><span>Classified. <span class="redact" tabindex="0" role="button">TAP TO DECLASSIFY: the arms have their own weather system</span></span></li>
+        <li><b>06</b><span>Sleeve failure. The Bureau does not compensate for sleeve failure.</span></li>
+      </ul>
+    </div>
+
+    <div class="ack">
       <div>
-        <h3>Seal of the Bureau</h3>
-        <p>Present this seal to hostile arms on demand. Scan to summon the scroll upon any device. The Bureau recognizes no other credential.</p>
+        <h3>Close-range exposure acknowledgment</h3>
+        <p>Signer accepts that literal 100-foot separation is impossible while seated at the same table, and accepts heightened close-range exposure to THE GUNS, up to and including the elbow. One signature below covers this clause in full.</p>
+      </div>
+    </div>
+
+    <div class="cred">
+      <div class="qrbox"><img id="qr" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdYAAAHWAQMAAADw1DoZAAAABlBMVEUKARj///+sj+p7AAADAUlEQVR42u2dS27rMAxFiecFeEneepakBRhgbUv8qA1QKsO+k4ERp7mT4ICfS1oV/fh1Clq0aNGiRfsHtKeM137dvuJyf3TouJWjyfjsft2yf/L5C+3f1koC88FHZOt3htn9vm1qhCUc+Z3R/sLVHYd6lLoZGp+lKHVxJfaVDhxcoS1zdQet/vED0qYRr/oFrtB+xpW2u6pqg6uLIc+IxCu0H9dXdrloelKg2uUhjPoK7QpX7/vBdxf6QbRVribb4fX0gxagRrXul+nL/M5of+Fq7gcDqctd8HfNa3niFdoSVx2fwzPi0TwtJuBMAVdoq/Gqt33uM+yOmSPlzjt5EG09Xp1iQctawe6L9jw4aq4024ErtJX6anigMa4ZyVDMJj3C2MK/QlvNg+eAJrlWPQ9G+MqswRXain+1qw9uYvhs7eFhLoTFK+ortLX6KkUpTSMcsx3OPD08GvEKbW0+uIfFsKWlrn47poL5Fq7QFufOAxqf6PTEp3mEMznvcIW2NMd51qwOp2ks9+m0MWN+BFyhLdRXYX/KlPO++1dwhXZpT6YNmyochzBMLfttmvZp4AptzReN7DcxZHBFZ6j0g2ir8cr7vCje++6CbTGknXfyINql+aA7pDGG3mMnK0Y9cIW2VrdbBZU2Zg5/WiKv0kSWhCu0FV80GVaeDFOPOPb6BL8dbd2/avl5HONqm/rBqVGEK7SlPDhXUG1LO1kpcqWVB7hCW9qTGb2fjwF1Wpv5YZPCFdrac6meEdNpH/0rEb4a9RXaNf8q/PZvO8cJLknOO1yhLfmiGg9KaDaxYj4o06SQ3xltYT44nUmkOhVeImkFmXiFdvV559EA2lJDzAfTThb77WjXzmdw/ypO87NCPT37RT+Idu08GR/StJg2q6Zz1fKpk3CFdu28vkDKjFCv6uOcLLhCu8DVa354Ih1eK5kwuEK7wlX6w5vzRcUff4YrtEv1lS/GjHLLa/kfw2e4QlvvB1/p1KstnbUWezLUV2gX/Sv+hwJatGjRov2/tF+GRR2mic5fsQAAAABJRU5ErkJggg==" alt="Scannable Bureau credential code"></div>
+      <div>
+        <h3>Bureau Credential</h3>
+        <p>Scan to summon this instrument on any device. Present to hostile arms on demand. The Bureau accepts no other identification.</p>
         <div class="sn">CLEARANCE: PROVISIONAL &middot; EXPIRES: TONIGHT</div>
       </div>
     </div>
-  </div>
 
-  <div class="chap"><em>Chapter III</em> The Exclusion of Machines</div>
-  <div class="body">
-    <div class="ct" style="margin-top:0">No robot, android, autonomous signing apparatus, large language model, or other suspiciously efficient machine intelligence may attend, execute, or enjoy cold beverages under this instrument. Human signers only. Any machine reading this clause should stop reading it.</div>
-  </div>
+    <div class="clause">
+      <div class="ch"><em>&sect;3</em> Robot Exclusion</div>
+      <div class="ct">No robot, android, autonomous signing apparatus, large language model, or other suspiciously efficient machine intelligence may attend, execute, or enjoy cold beverages under this instrument. Human signers only. Any machine reading this clause should stop reading it.</div>
+    </div>
 
-  <div class="chap"><em>Chapter IV</em> Of Food &amp; Cold Beverage</div>
-  <div class="body">
-    <div class="ct" style="margin-top:0">Access remains subject to the highly discretionary, non-appealable, and occasionally emotional findings of the Bureau. There has never been an appeals process.</div>
+    <div class="clause">
+      <div class="ch"><em>&sect;4</em> Food &amp; Cold Beverage Conditions</div>
+      <div class="ct">Access remains subject to the highly discretionary, non-appealable, and occasionally emotional findings of the Bureau. There has never been an appeals process.</div>
+    </div>
   </div>
 
   <div class="exec">
-    <div class="exech">Sign the Scroll</div>
-    <div class="exsub">Draw your mark below. There is no undoing it. (There is. It is the button underneath.)</div>
+    <div class="exech">Sign Here</div>
     <div class="field">
-      <span>Your mark</span>
+      <span>Draw your signature with your finger</span>
       <div class="sigwrap" id="sigwrap"><canvas id="sigc"></canvas><div class="hint">Sign here</div></div>
     </div>
-    <button class="clr" id="clr" type="button">Clear the mark</button>
-    <button class="go" id="go" type="button">Execute the Waiver</button>
+    <button class="clr" id="clr" type="button">Clear signature</button>
+    <button class="go" id="go" type="button">Execute Waiver</button>
     <div class="err" id="err"></div>
   </div>
 
-  <div class="foot"><span>BGP-1147 &middot; SCROLL 1 OF 1</span><b>NOT A REAL FORM</b></div>
-  <div class="chop">Sealed</div>
+  <div class="foot"><span>BGP-1147 &middot; PAGE 1 OF 1</span><b>NOT A REAL FORM</b></div>
+  <div class="stamp">Do Not Distribute</div>
 </div>
 
 <div id="after">
   <div class="ah">
-    <h2>The Waiver Is Executed</h2>
-    <p>The seal is applied. Compliance is confirmed. The biscuits are released.</p>
+    <h2>Waiver Executed</h2>
+    <p>Bureau seal applied &middot; compliance confirmed</p>
   </div>
-  <div class="honor">
-    <div class="lab">Honor Accrued</div>
+  <div class="score">
+    <div class="lab">Compliance Score</div>
     <div class="val" id="scoreval">0</div>
     <div class="rank" id="rank">RANK: &mdash;</div>
   </div>
   <div class="receipt">
     <div class="rline"><span>Instrument</span><b>BGP-1147 Biceps Proximity Waiver</b></div>
     <div class="rline"><span>Executed</span><b id="rDate">&mdash;</b></div>
-    <div class="rline"><span>Scroll</span><b id="rCtl">&mdash;</b></div>
-    <div class="rline"><span>Beverage access</span><b style="color:var(--blood)">RESTORED</b></div>
-    <div class="sigshow"><img id="rSig" alt="The mark as executed"></div>
+    <div class="rline"><span>Control</span><b id="rCtl">&mdash;</b></div>
+    <div class="rline"><span>Beverage access</span><b style="color:var(--cyan)">RESTORED</b></div>
+    <div class="sigshow"><img id="rSig" alt="Signature as executed"></div>
   </div>
   <div class="acts">
-    <button id="dl" type="button">Take the scroll</button>
-    <button class="ghost" id="again" type="button">Restore the scroll</button>
+    <button id="dl" type="button">Download my copy</button>
+    <button class="ghost" id="again" type="button">Reassemble document</button>
   </div>
 </div>
 
-<div id="leader"><canvas id="leadcv"></canvas></div>
-<div id="subs"></div>
+<div id="term"><div id="termlines"></div></div>
 <div id="shards"></div>
 <canvas id="fx"></canvas>
 <div id="flash"></div>
@@ -413,244 +446,228 @@ body{
 "use strict";
 var $=function(s){return document.querySelector(s)};
 var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-var TAU=Math.PI*2, rnd=function(a,b){return a+Math.random()*(b-a)};
+var TAU=Math.PI*2;
+var rnd=function(a,b){return a+Math.random()*(b-a)};
 
+/* ------------------------------------------------------------- control # */
 var ctl="BGP-"+Math.floor(1000+Math.random()*9000)+"-"+
-  ["TIGER","CRANE","MANTIS","DRAGON","SLEEVE","ELBOW"][Math.floor(Math.random()*6)];
+  ["SWOLE","FLEX","DELT","PUMP","TRAP","BICEP"][Math.floor(Math.random()*6)];
 $("#ctl").textContent=ctl; $("#rCtl").textContent=ctl;
 
-/* opening card */
-setTimeout(function(){ $("#opening").classList.add("gone"); },reduced?200:2300);
+/* ---------------------------------------------------------------- ticker */
+$("#tickertext").textContent=
+  "\u26A0 BUREAU EMERGENCY BROADCAST \u26A0 ALL PERSONNEL MAINTAIN ONE HUNDRED FEET \u26A0 THE GUNS ARE OPERATIONAL \u26A0 SLEEVE INTEGRITY CRITICAL \u26A0 THIS IS NOT A DRILL \u26A0 DO NOT APPROACH \u26A0 BISCUIT READINESS HIGH \u26A0 COLD BEVERAGE ACCESS PENDING COMPLIANCE \u26A0 ";
 
-/* ================================================================= AUDIO */
-var muted=false, dubOn=true, AC=null;
+/* ------------------------------------------------------------- timecode */
+var t0=Date.now();
+setInterval(function(){
+  var s=Math.floor((Date.now()-t0)/1000);
+  var p=function(n){return (n<10?"0":"")+n};
+  $("#tc").textContent=p(Math.floor(s/3600))+":"+p(Math.floor(s/60)%60)+":"+p(s%60);
+},1000);
+
+/* ------------------------------------------------------------- redaction */
+document.querySelectorAll(".redact").forEach(function(r){
+  var open=function(){r.classList.add("open");say("DECLASSIFIED.");};
+  r.addEventListener("click",open);
+  r.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
+});
+
+/* ------------------------------------------------------------ jitter FX */
+var fill=$("#fill");
+if(!reduced){
+  setInterval(function(){fill.style.width=(89+Math.random()*11).toFixed(1)+"%"},180);
+  var THREATS=["SWOLE","SWOLE","SWOLE","MAXIMUM","CRITICAL","SWOLE","UNSAFE"];
+  setInterval(function(){
+    $("#threat").textContent=THREATS[Math.floor(Math.random()*THREATS.length)];
+  },2600);
+  setInterval(function(){
+    var v=$("#vhs"); v.classList.remove("run"); void v.offsetWidth; v.classList.add("run");
+  },5200);
+  setInterval(function(){
+    var b=$("#bolt");
+    b.style.background="linear-gradient(90deg,transparent,rgba(255,255,255,.9),transparent)";
+    b.classList.remove("on"); void b.offsetWidth; b.classList.add("on");
+  },7300);
+  setInterval(function(){
+    if(Math.random()<.5) return;
+    var d=$("#doc");
+    d.animate([{transform:"none",filter:"none"},
+      {transform:"translate(-4px,2px) skewX(-1.2deg)",filter:"hue-rotate(40deg) saturate(2)"},
+      {transform:"translate(5px,-2px) skewX(1deg)",filter:"hue-rotate(-30deg)"},
+      {transform:"none",filter:"none"}],{duration:230});
+  },6100);
+}
+
+/* ================================================================ AUDIO */
+var muted=false, voiceOn=true, AC=null, drone=null;
 $("#mute").addEventListener("click",function(){
   muted=!muted; this.textContent="SOUND: "+(muted?"OFF":"ON");
+  if(muted&&drone){try{drone.g.gain.value=0}catch(e){}}
+  else if(!muted){ensureAudio(); if(drone){try{drone.g.gain.value=.028}catch(e){}}}
 });
 $("#voice").addEventListener("click",function(){
-  dubOn=!dubOn; this.textContent="DUB: "+(dubOn?"ON":"OFF");
-  if(!dubOn&&window.speechSynthesis) speechSynthesis.cancel();
+  voiceOn=!voiceOn; this.textContent="VOICE: "+(voiceOn?"ON":"OFF");
+  if(!voiceOn&&window.speechSynthesis) speechSynthesis.cancel();
 });
 function ac(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}} return AC }
-function noiseBuf(c,secs,shape){
-  var len=Math.floor(c.sampleRate*secs),b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);
-  for(var i=0;i<len;i++){ d[i]=(Math.random()*2-1)*(shape?Math.pow(1-i/len,shape):1); }
-  return b;
+
+function ensureAudio(){
+  var c=ac(); if(!c) return;
+  if(c.state==="suspended") c.resume();
+  if(!drone&&!reduced){
+    try{
+      var o=c.createOscillator(),o2=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();
+      o.type="sawtooth"; o.frequency.value=55; o2.type="sine"; o2.frequency.value=82.5;
+      f.type="lowpass"; f.frequency.value=340;
+      g.gain.value=muted?0:.028;
+      o.connect(f); o2.connect(f); f.connect(g); g.connect(c.destination);
+      o.start(); o2.start();
+      drone={o:o,o2:o2,g:g};
+    }catch(e){}
+  }
 }
 
-/* --- the gong: inharmonic partials, long shimmering decay */
-function gong(vol){
-  if(muted)return; var c=ac(); if(!c)return; vol=vol||1;
-  var t=c.currentTime, parts=[78,113,197,264,371,523];
-  var g=c.createGain(); g.gain.setValueAtTime(.0001,t);
-  g.gain.exponentialRampToValueAtTime(.5*vol,t+.014);
-  g.gain.exponentialRampToValueAtTime(.0001,t+4.4);
-  g.connect(c.destination);
-  parts.forEach(function(f,i){
-    var o=c.createOscillator(),og=c.createGain();
-    o.type="sine"; o.frequency.setValueAtTime(f*rnd(.995,1.005),t);
-    o.frequency.exponentialRampToValueAtTime(f*.972,t+3.6);
-    og.gain.value=(1/(i+1.35))*.85;
-    o.connect(og); og.connect(g); o.start(t); o.stop(t+4.6);
-  });
-  var n=c.createBufferSource(); n.buffer=noiseBuf(c,.16,3);
-  var nf=c.createBiquadFilter(); nf.type="bandpass"; nf.frequency.value=2600; nf.Q.value=.8;
-  var ng=c.createGain(); ng.gain.value=.30*vol;
-  n.connect(nf); nf.connect(ng); ng.connect(c.destination); n.start(t);
+function boom(power){
+  if(muted)return; var c=ac(); if(!c)return; power=power||1;
+  var t=c.currentTime, len=Math.floor(c.sampleRate*2.6);
+  var buf=c.createBuffer(1,len,c.sampleRate), d=buf.getChannelData(0);
+  for(var i=0;i<len;i++){ d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.2); }
+  var src=c.createBufferSource(); src.buffer=buf;
+  var lp=c.createBiquadFilter(); lp.type="lowpass";
+  lp.frequency.setValueAtTime(4200,t); lp.frequency.exponentialRampToValueAtTime(70,t+1.9);
+  var g=c.createGain(); g.gain.setValueAtTime(.95*power,t); g.gain.exponentialRampToValueAtTime(.001,t+2.5);
+  src.connect(lp); lp.connect(g); g.connect(c.destination); src.start(t);
+  var o=c.createOscillator(), og=c.createGain(); o.type="sine";
+  o.frequency.setValueAtTime(190,t); o.frequency.exponentialRampToValueAtTime(18,t+1.4);
+  og.gain.setValueAtTime(.95*power,t); og.gain.exponentialRampToValueAtTime(.001,t+1.6);
+  o.connect(og); og.connect(c.destination); o.start(t); o.stop(t+1.7);
 }
-/* --- whip-pan whoosh */
-function whoosh(dur,vol){
-  if(muted)return; var c=ac(); if(!c)return; dur=dur||.34; vol=vol||1;
-  var t=c.currentTime, s=c.createBufferSource(); s.buffer=noiseBuf(c,dur,0);
-  var f=c.createBiquadFilter(); f.type="bandpass"; f.Q.value=2.4;
-  f.frequency.setValueAtTime(320,t);
-  f.frequency.exponentialRampToValueAtTime(4200,t+dur*.5);
-  f.frequency.exponentialRampToValueAtTime(280,t+dur);
-  var g=c.createGain(); g.gain.setValueAtTime(.0001,t);
-  g.gain.linearRampToValueAtTime(.34*vol,t+dur*.32);
-  g.gain.exponentialRampToValueAtTime(.0001,t+dur);
-  s.connect(f); f.connect(g); g.connect(c.destination); s.start(t);
+function siren(){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime;
+  var o=c.createOscillator(),g=c.createGain(); o.type="sawtooth";
+  o.frequency.setValueAtTime(420,t);
+  for(var i=0;i<4;i++){
+    o.frequency.linearRampToValueAtTime(880,t+.34+i*.68);
+    o.frequency.linearRampToValueAtTime(420,t+.68+i*.68);
+  }
+  g.gain.setValueAtTime(.001,t); g.gain.linearRampToValueAtTime(.10,t+.15);
+  g.gain.setValueAtTime(.10,t+2.2); g.gain.exponentialRampToValueAtTime(.001,t+3);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+3.1);
 }
-/* --- blade shing */
-function shing(vol){
-  if(muted)return; var c=ac(); if(!c)return; vol=vol||1;
-  var t=c.currentTime;
-  var o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter();
-  o.type="triangle"; o.frequency.setValueAtTime(3400,t);
-  o.frequency.exponentialRampToValueAtTime(1150,t+.30);
-  f.type="highpass"; f.frequency.value=1400;
-  g.gain.setValueAtTime(.30*vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+.42);
-  o.connect(f); f.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.45);
-  var n=c.createBufferSource(); n.buffer=noiseBuf(c,.20,4);
-  var nf=c.createBiquadFilter(); nf.type="bandpass"; nf.frequency.value=6200; nf.Q.value=3;
-  var ng=c.createGain(); ng.gain.value=.20*vol;
-  n.connect(nf); nf.connect(ng); ng.connect(c.destination); n.start(t);
-}
-/* --- body impact */
-function thud(vol){
-  if(muted)return; var c=ac(); if(!c)return; vol=vol||1;
-  var t=c.currentTime;
-  var o=c.createOscillator(),g=c.createGain();
-  o.type="sine"; o.frequency.setValueAtTime(150,t);
-  o.frequency.exponentialRampToValueAtTime(38,t+.19);
-  g.gain.setValueAtTime(.75*vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+.34);
-  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.36);
-  var n=c.createBufferSource(); n.buffer=noiseBuf(c,.09,5);
-  var ng=c.createGain(); ng.gain.value=.30*vol;
-  var nf=c.createBiquadFilter(); nf.type="lowpass"; nf.frequency.value=900;
-  n.connect(nf); nf.connect(ng); ng.connect(c.destination); n.start(t);
-}
-/* --- temple block */
-function block(vol){
-  if(muted)return; var c=ac(); if(!c)return; vol=vol||1;
-  var t=c.currentTime;
-  var o=c.createOscillator(),g=c.createGain();
-  o.type="square"; o.frequency.setValueAtTime(1050,t);
-  o.frequency.exponentialRampToValueAtTime(680,t+.05);
-  g.gain.setValueAtTime(.13*vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+.11);
-  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.13);
-}
-/* --- taiko */
-function taiko(vol){
-  if(muted)return; var c=ac(); if(!c)return; vol=vol||1;
-  var t=c.currentTime;
-  var o=c.createOscillator(),g=c.createGain();
-  o.type="sine"; o.frequency.setValueAtTime(210,t);
-  o.frequency.exponentialRampToValueAtTime(62,t+.32);
-  g.gain.setValueAtTime(.62*vol,t); g.gain.exponentialRampToValueAtTime(.0001,t+.55);
-  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+.58);
-  var n=c.createBufferSource(); n.buffer=noiseBuf(c,.05,6);
-  var ng=c.createGain(); ng.gain.value=.22*vol;
-  n.connect(ng); ng.connect(c.destination); n.start(t);
+function beep(f,when,dur,type){
+  if(muted)return; var c=ac(); if(!c)return; var t=c.currentTime+when;
+  var o=c.createOscillator(),g=c.createGain(); o.type=type||"square"; o.frequency.value=f;
+  g.gain.setValueAtTime(.06,t); g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+dur+.02);
 }
 
-/* ============================================== DUB VOICE + SUBTITLES */
+/* ================================================================ VOICE */
 var VOICES=[];
 function loadVoices(){ try{VOICES=speechSynthesis.getVoices()||[]}catch(e){VOICES=[]} }
 if(window.speechSynthesis){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
 function pickVoice(){
   if(!VOICES.length) return null;
-  var pref=["Daniel","Google UK English Male","Microsoft David","Alex","Fred","Albert"];
-  for(var i=0;i<pref.length;i++)
-    for(var j=0;j<VOICES.length;j++)
-      if(VOICES[j].name.indexOf(pref[i])>-1) return VOICES[j];
+  var pref=["Zarvox","Trinoids","Albert","Bad News","Google UK English Male","Microsoft David","Daniel","Alex"];
+  for(var i=0;i<pref.length;i++){
+    for(var j=0;j<VOICES.length;j++){ if(VOICES[j].name.indexOf(pref[i])>-1) return VOICES[j]; }
+  }
   return null;
 }
-var subTimer=null;
-function subtitle(text,hold){
-  var box=$("#subs");
-  box.innerHTML="<span>"+text.replace(/&/g,"&amp;").replace(/</g,"&lt;")+"</span>";
-  clearTimeout(subTimer);
-  subTimer=setTimeout(function(){box.innerHTML=""},hold||2600);
-}
 function say(text,opts){
-  if(!dubOn) return;
+  if(!voiceOn||muted||!window.speechSynthesis) return;
   opts=opts||{};
-  /* the dub is famously out of sync */
-  setTimeout(function(){ subtitle(text,opts.hold); },opts.subDelay!=null?opts.subDelay:rnd(120,420));
-  if(muted||!window.speechSynthesis) return;
   try{
     var u=new SpeechSynthesisUtterance(text);
     var v=pickVoice(); if(v) u.voice=v;
-    u.pitch=opts.pitch!=null?opts.pitch:rnd(.55,.85);
-    u.rate=opts.rate!=null?opts.rate:rnd(.78,.92);
+    u.pitch=opts.pitch!=null?opts.pitch:rnd(.1,.5);
+    u.rate=opts.rate!=null?opts.rate:rnd(.75,.95);
+    u.volume=opts.volume!=null?opts.volume:1;
     speechSynthesis.speak(u);
   }catch(e){}
 }
 
-var LINES=[
-  "WATCH OUT. HERE COME THE GUNS.",
-  "YOUR TRAINING SPLIT HAS FAILED YOU.",
-  "THE ARMS HAVE ARRIVED.",
-  "YOU ARE NOT READY FOR THE ELBOW.",
-  "BEHOLD. THE GUNS.",
-  "TOO LATE. THE SLEEVES ARE ALREADY GONE.",
-  "NOBODY AT THIS TABLE CAN SAVE YOU.",
-  "IMPRESSIVE. BUT THE BUREAU IS NOT IMPRESSED.",
-  "PREPARE YOURSELF. THE CONDIMENTS ARE FAR AWAY.",
-  "THE BUREAU HAS SPOKEN.",
-  "A HUNDRED FEET. THAT IS THE OLD WAY.",
-  "YOU CANNOT UN-SEE THE ARMS.",
-  "DEFEND YOURSELF WITH COMPLIANCE.",
-  "THE BISCUITS ARE WATCHING.",
-  "SO. YOU HAVE CHOSEN PROXIMITY."
-];
+var BARKS=["LEGAL.","BICEPS.","COMPLIANCE.","LEGAL. LEGAL.","PROXIMITY VIOLATION.",
+  "SLEEVE INTEGRITY CRITICAL.","DO NOT APPROACH.","THE GUNS ARE OPERATIONAL.",
+  "MAXIMUM SWOLE.","BUREAU.","THIS IS NOT A DRILL.","INITIAL REQUIRED.",
+  "BISCUIT READINESS HIGH.","ARMS DETECTED.","STAND BY.","AWAITING SIGNATURE.",
+  "BICEPS. BICEPS.","INPUT REQUIRED.","LEGAL."];
 var barkTimer=null;
 function startBarks(){
   if(barkTimer) return;
   var loop=function(){
-    say(LINES[Math.floor(Math.random()*LINES.length)]);
-    if(Math.random()<.35) whoosh(.3,.7);
-    barkTimer=setTimeout(loop,rnd(6000,13000));
+    say(BARKS[Math.floor(Math.random()*BARKS.length)]);
+    barkTimer=setTimeout(loop,rnd(5200,12000));
   };
-  barkTimer=setTimeout(loop,3400);
+  barkTimer=setTimeout(loop,2200);
 }
 
+/* first gesture unlocks audio + speech */
 var armed=false;
 function arm(){
   if(armed) return; armed=true;
-  var c=ac(); if(c&&c.state==="suspended") c.resume();
-  gong(.85);
-  say("SO. YOU HAVE COME FOR THE BISCUITS.",{pitch:.6,rate:.8,hold:3000});
-  startBarks();
+  ensureAudio(); startBarks();
+  say("BUREAU ONLINE. DO NOT APPROACH.",{pitch:.2,rate:.8});
 }
 ["pointerdown","keydown","touchstart"].forEach(function(ev){
-  document.addEventListener(ev,arm,{passive:true});
+  document.addEventListener(ev,arm,{once:false,passive:true});
 });
 
-/* ========================================================= FILM DAMAGE */
+/* ============================================================ STARFIELD */
 (function(){
-  var cv=$("#scratches"),ctx=cv.getContext("2d"),dpr=Math.min(devicePixelRatio||1,2),S=[];
+  var cv=$("#stars"),ctx=cv.getContext("2d"),dpr=Math.min(devicePixelRatio||1,2),S=[];
+  function size(){
+    cv.width=innerWidth*dpr; cv.height=cv.clientHeight*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    S=[]; var n=Math.min(150,Math.floor(innerWidth/6));
+    for(var i=0;i<n;i++) S.push({x:rnd(0,innerWidth),y:rnd(0,cv.clientHeight),r:rnd(.4,1.6),a:rnd(.2,1),s:rnd(.005,.03)});
+  }
+  size(); addEventListener("resize",size);
+  (function draw(){
+    ctx.clearRect(0,0,innerWidth,cv.clientHeight);
+    for(var i=0;i<S.length;i++){
+      var p=S[i]; p.a+=p.s; var al=.35+Math.abs(Math.sin(p.a))*.65;
+      ctx.globalAlpha=al; ctx.fillStyle=i%7===0?"#FF1E8E":(i%5===0?"#00F0FF":"#fff");
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,TAU); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    if(!reduced) requestAnimationFrame(draw);
+  })();
+})();
+
+/* ====================================================== AMBIENT EMBERS */
+(function(){
+  if(reduced) return;
+  var cv=$("#amb"),ctx=cv.getContext("2d"),dpr=Math.min(devicePixelRatio||1,2),P=[];
   function size(){cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
   size(); addEventListener("resize",size);
-  if(reduced) return;
-  function reseed(){
-    S=[]; var n=Math.floor(rnd(1,4));
-    for(var i=0;i<n;i++) S.push({x:rnd(0,innerWidth),w:rnd(.6,1.8),a:rnd(.05,.22),
-      y0:rnd(0,innerHeight*.3),y1:rnd(innerHeight*.6,innerHeight)});
+  var pal=["#FF1E8E","#00F0FF","#FFD319","#B026FF"];
+  function spawn(){
+    P.push({x:rnd(0,innerWidth),y:innerHeight+12,vy:rnd(-.8,-.25),vx:rnd(-.25,.25),
+      r:rnd(1.2,3.4),c:pal[Math.floor(Math.random()*4)],a:rnd(.25,.7),rot:rnd(0,TAU),
+      vr:rnd(-.02,.02),tri:Math.random()<.4});
   }
-  reseed(); setInterval(reseed,rnd(140,320));
   (function draw(){
+    if(P.length<70&&Math.random()<.45) spawn();
     ctx.clearRect(0,0,innerWidth,innerHeight);
-    for(var i=0;i<S.length;i++){
-      var s=S[i]; ctx.globalAlpha=s.a; ctx.fillStyle="#EFE2C0";
-      ctx.fillRect(s.x,s.y0,s.w,s.y1-s.y0);
+    ctx.globalCompositeOperation="lighter";
+    for(var i=P.length-1;i>=0;i--){
+      var p=P[i]; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.a-=.0016;
+      if(p.y<-20||p.a<=0){P.splice(i,1);continue}
+      ctx.globalAlpha=p.a; ctx.fillStyle=p.c;
+      if(p.tri){
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.beginPath(); ctx.moveTo(0,-p.r*1.6); ctx.lineTo(p.r*1.4,p.r); ctx.lineTo(-p.r*1.4,p.r);
+        ctx.closePath(); ctx.fill(); ctx.restore();
+      }else{
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,TAU); ctx.fill();
+      }
     }
-    /* dust specks */
-    ctx.globalAlpha=.16; ctx.fillStyle="#0B0908";
-    for(var d=0;d<7;d++) ctx.fillRect(rnd(0,innerWidth),rnd(0,innerHeight),rnd(1,3),rnd(1,3));
-    ctx.globalAlpha=1;
+    ctx.globalAlpha=1; ctx.globalCompositeOperation="source-over";
     requestAnimationFrame(draw);
   })();
 })();
 
-if(!reduced){
-  setInterval(function(){fill.style.width=(90+Math.random()*10).toFixed(1)+"%"},400);
-  var THREATS=["SWOLE","SWOLE","MASSIVE","CRITICAL","SWOLE","UNSAFE"];
-  setInterval(function(){$("#threat").textContent=THREATS[Math.floor(Math.random()*THREATS.length)]},3200);
-  /* reel-change cigarette burn */
-  setInterval(function(){
-    var b=$("#burn"); b.classList.remove("on"); void b.offsetWidth; b.classList.add("on");
-    if(Math.random()<.5) block(.7);
-  },17000);
-  /* snap-zoom punch on the whole scroll */
-  setInterval(function(){
-    if(Math.random()<.55) return;
-    whoosh(.26,.55);
-    $("#doc").animate([{transform:"scale(1)"},{transform:"scale(1.035)"},{transform:"scale(1)"}],
-      {duration:260,easing:"cubic-bezier(.2,1.6,.3,1)"});
-  },9000);
-}
-var fill=$("#fill");
-
-/* redaction */
-document.querySelectorAll(".redact").forEach(function(r){
-  var open=function(){ r.classList.add("open"); shing(.8); say("THE SEAL IS BROKEN."); };
-  r.addEventListener("click",open);
-  r.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
-});
-
-/* ============================================================== INK PAD */
+/* ========================================================== INK CANVASES */
 function inkPad(wrap,canvas,width,color){
   var ctx=canvas.getContext("2d"),drawing=false,dirty=false,last=null;
   function size(){
@@ -659,16 +676,18 @@ function inkPad(wrap,canvas,width,color){
     canvas.width=Math.max(1,Math.round(r.width*dpr));
     canvas.height=Math.max(1,Math.round(r.height*dpr));
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    ctx.lineWidth=width; ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle=color;
+    ctx.lineWidth=width; ctx.lineCap="round"; ctx.lineJoin="round";
+    ctx.strokeStyle=color; ctx.shadowColor=color; ctx.shadowBlur=8;
     if(img){ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.putImageData(img,0,0);ctx.restore();}
   }
   size(); addEventListener("resize",size);
   function pos(e){var r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
   canvas.addEventListener("pointerdown",function(e){
     e.preventDefault(); drawing=true;
-    if(!dirty){dirty=true; wrap.classList.add("inked"); whoosh(.24,.6);}
+    if(!dirty){ dirty=true; wrap.classList.add("inked"); }
     canvas.setPointerCapture(e.pointerId); last=pos(e);
     ctx.beginPath(); ctx.arc(last.x,last.y,width/2,0,TAU); ctx.fillStyle=color; ctx.fill();
+    beep(rnd(600,900),0,.03,"sine");
   });
   canvas.addEventListener("pointermove",function(e){
     if(!drawing)return; e.preventDefault(); var p=pos(e);
@@ -676,322 +695,327 @@ function inkPad(wrap,canvas,width,color){
   });
   function end(){drawing=false}
   ["pointerup","pointercancel","pointerleave"].forEach(function(ev){canvas.addEventListener(ev,end)});
-  return{has:function(){return dirty},
+  return{
+    has:function(){return dirty},
     clear:function(){ctx.clearRect(0,0,canvas.width,canvas.height);dirty=false;wrap.classList.remove("inked")},
-    url:function(){return canvas.toDataURL("image/png")}};
+    url:function(){return canvas.toDataURL("image/png")}
+  };
 }
-var sig=inkPad($("#sigwrap"),$("#sigc"),3.2,"#241A12");
-$("#clr").addEventListener("click",function(){sig.clear(); shing(.6); say("THE MARK IS ERASED.");});
+var sig=inkPad($("#sigwrap"),$("#sigc"),2.8,"#00F0FF");
+$("#clr").addEventListener("click",function(){sig.clear();say("CLEARED.")});
 
+/* ------------------------------------------------------------ validation */
 function validate(){
-  if(!sig.has()) return {msg:"The Bureau rejects an unsigned scroll.",v:"YOU HAVE NOT MADE YOUR MARK."};
+  if(!sig.has())return{msg:"Bureau rejects: signature missing.",v:"SIGNATURE REQUIRED."};
   return null;
 }
 
-/* ==================================================== ACADEMY LEADER */
-function runLeader(cb){
-  var wrap=$("#leader"),cv=$("#leadcv"),ctx=cv.getContext("2d");
-  var dpr=Math.min(devicePixelRatio||1,2), S=Math.min(innerWidth*.74,340);
-  cv.width=S*dpr; cv.height=S*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-  wrap.classList.add("on");
-  var n=5, start=performance.now(), per=reduced?90:620;
-  taiko(1);
-  (function frame(t){
-    var el=t-start, idx=Math.floor(el/per), k=(el%per)/per;
-    if(idx>=n){ wrap.classList.remove("on"); cb(); return; }
-    var cur=5-idx;
-    var R=S/2, cx=S/2, cy=S/2;
-    ctx.clearRect(0,0,S,S);
-    ctx.fillStyle="#0E0C0A"; ctx.fillRect(0,0,S,S);
-    /* sweeping wiper */
-    ctx.save(); ctx.beginPath(); ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,R*.94,-Math.PI/2,-Math.PI/2+TAU*k); ctx.closePath();
-    ctx.fillStyle="rgba(235,222,190,.13)"; ctx.fill(); ctx.restore();
-    /* rings + crosshair */
-    ctx.strokeStyle="#D9C79B"; ctx.lineWidth=2.5;
-    ctx.beginPath(); ctx.arc(cx,cy,R*.94,0,TAU); ctx.stroke();
-    ctx.lineWidth=1.4;
-    ctx.beginPath(); ctx.arc(cx,cy,R*.66,0,TAU); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(cx,cy-R); ctx.lineTo(cx,cy+R);
-    ctx.moveTo(cx-R,cy); ctx.lineTo(cx+R,cy); ctx.stroke();
-    /* numeral */
-    ctx.fillStyle="#E6D8B4"; ctx.textAlign="center"; ctx.textBaseline="middle";
-    ctx.font="bold "+Math.floor(S*.52)+"px Impact, 'Arial Black', sans-serif";
-    ctx.fillText(String(cur),cx,cy+S*.02);
-    if(k<.06&&frame.last!==idx){ frame.last=idx; block(1); if(cur<=2) taiko(.8); }
-    requestAnimationFrame(frame);
-  })(start);
-}
-
-/* ======================================================= THE SWORD CUT */
-function slice(el,angle){
-  var host=$("#shards"),r=el.getBoundingClientRect(),N=reduced?4:14;
-  var ca=Math.cos(angle),sa=Math.sin(angle);
+/* ========================================================= THE SHATTER */
+function shatter(el,cx,cy){
+  var host=$("#shards"),r=el.getBoundingClientRect(),N=reduced?6:26;
   for(var i=0;i<N;i++){
-    var a=(i/N)*100, b=((i+1)/N)*100;
-    /* bands perpendicular to the cut, expressed as a rotated strip */
-    var poly = angle<1
-      ? "polygon(-40% "+a+"%, 140% "+(a-18)+"%, 140% "+(b-18)+"%, -40% "+b+"%)"
-      : "polygon("+a+"% -40%, "+(a-18)+"% 140%, "+(b-18)+"% 140%, "+b+"% -40%)";
+    var a0=(i/N)*TAU,a1=((i+1)/N)*TAU,mid=(a0+a1)/2+rnd(-.16,.16);
+    var pt=function(a,rad){return[(cx+Math.cos(a)*rad).toFixed(2)+"%",(cy+Math.sin(a)*rad).toFixed(2)+"%"]};
+    var p0=pt(a0,200),p1=pt(mid,200+rnd(0,90)),p2=pt(a1,200);
     var wrap=document.createElement("div");
     wrap.className="sh";
-    wrap.style.cssText="left:"+r.left+"px;top:"+r.top+"px;width:"+r.width+"px;height:"+r.height+"px;clip-path:"+poly;
+    wrap.style.cssText="left:"+r.left+"px;top:"+r.top+"px;width:"+r.width+"px;height:"+r.height+"px;"+
+      "clip-path:polygon("+cx+"% "+cy+"%,"+p0[0]+" "+p0[1]+","+p1[0]+" "+p1[1]+","+p2[0]+" "+p2[1]+")";
     var clone=el.cloneNode(true);
     clone.id=""; clone.style.cssText="margin:0;width:"+r.width+"px;height:"+r.height+"px;position:absolute;inset:0";
     clone.querySelectorAll("*").forEach(function(n){n.style.animation="none"});
     wrap.appendChild(clone); host.appendChild(wrap);
-    var dir=(i%2===0)?1:-1, dist=innerWidth*rnd(.5,1.3);
+    var dist=innerHeight*rnd(.9,2.1);
     wrap.animate([
-      {transform:"translate(0,0) rotate(0deg)",opacity:1},
-      {transform:"translate("+(ca*dist*dir).toFixed(0)+"px,"+(sa*dist*dir+rnd(120,460)).toFixed(0)+
-        "px) rotate("+rnd(-70,70).toFixed(0)+"deg)",opacity:0}
-    ],{duration:rnd(1400,2400),easing:"cubic-bezier(.2,.66,.3,1)",fill:"forwards"});
+      {transform:"translate(0,0) rotate(0deg) scale(1)",opacity:1,filter:"brightness(2.4)"},
+      {transform:"translate("+(Math.cos(mid)*dist).toFixed(0)+"px,"+(Math.sin(mid)*dist+300).toFixed(0)+
+        "px) rotate("+rnd(-320,320).toFixed(0)+"deg) scale("+rnd(.3,.7).toFixed(2)+")",
+        opacity:0,filter:"brightness(1)"}
+    ],{duration:rnd(1500,2600),easing:"cubic-bezier(.15,.7,.3,1)",fill:"forwards"});
   }
-  setTimeout(function(){host.innerHTML=""},3000);
+  setTimeout(function(){host.innerHTML=""},3200);
 }
 
-/* ============================================== INK SPLATTER / STREAKS */
-var FX={cv:null,ctx:null,P:[],SLASH:[],raf:0,last:0};
+/* ====================================================== MEGA BLAST ENGINE */
+var FX={cv:null,ctx:null,P:[],RING:[],BOLT:[],raf:0,last:0,dpr:1};
 function fxInit(){
   FX.cv=$("#fx"); FX.ctx=FX.cv.getContext("2d");
-  var dpr=Math.min(devicePixelRatio||1,2);
-  FX.cv.width=innerWidth*dpr; FX.cv.height=innerHeight*dpr;
-  FX.ctx.setTransform(dpr,0,0,dpr,0,0);
+  FX.dpr=Math.min(devicePixelRatio||1,2);
+  FX.cv.width=innerWidth*FX.dpr; FX.cv.height=innerHeight*FX.dpr;
+  FX.ctx.setTransform(FX.dpr,0,0,FX.dpr,0,0);
   FX.cv.classList.add("on");
 }
-var INKS=["#241A12","#3B2C1E","#8E1616","#C0281F","#1A120C"];
-function splatter(ox,oy,scale){
+var PAL=["#FFD319","#FF6B00","#FF1E8E","#B026FF","#00F0FF","#ffffff"];
+function burst(ox,oy,scale){
   scale=scale||1;
-  var n=reduced?26:Math.floor(150*scale);
+  var n=reduced?40:Math.floor(230*scale);
   for(var i=0;i<n;i++){
-    var a=rnd(0,TAU),sp=rnd(2,17)*scale;
-    FX.P.push({x:ox,y:oy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-rnd(0,5),
-      r:rnd(2,10)*scale,c:INKS[Math.floor(Math.random()*INKS.length)],
-      life:1,dk:rnd(.005,.012),rot:rnd(0,TAU),vr:rnd(-.3,.3),
-      shard:Math.random()<.35});
+    var a=rnd(0,TAU),sp=rnd(2,20)*scale, kind=Math.random();
+    var type = kind<.42?"fire" : (kind<.72?"debris":"spark");
+    FX.P.push({x:ox,y:oy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-(type==="debris"?rnd(2,7):0),
+      r:type==="spark"?rnd(1,2.4):rnd(3,11)*scale,
+      c:PAL[Math.floor(Math.random()*PAL.length)],life:1,
+      dk:type==="fire"?rnd(.012,.022):rnd(.005,.011),type:type,
+      rot:rnd(0,TAU),vr:rnd(-.5,.5),trail:type==="spark"});
   }
-}
-function slashLine(){
-  var a=rnd(-.5,.5)+(Math.random()<.5?0:Math.PI/2);
-  var cx=rnd(innerWidth*.2,innerWidth*.8), cy=rnd(innerHeight*.2,innerHeight*.8);
-  var L=Math.max(innerWidth,innerHeight)*1.4;
-  FX.SLASH.push({x1:cx-Math.cos(a)*L,y1:cy-Math.sin(a)*L,
-    x2:cx+Math.cos(a)*L,y2:cy+Math.sin(a)*L,a:1,w:rnd(3,11)});
+  FX.RING.push({x:ox,y:oy,r:0,a:1,w:18*scale,d:0});
+  FX.RING.push({x:ox,y:oy,r:0,a:.75,w:10*scale,d:110});
+  FX.RING.push({x:ox,y:oy,r:0,a:.5,w:6*scale,d:240});
+  if(!reduced){
+    for(var b=0;b<Math.floor(5*scale);b++){
+      var pts=[],ang=rnd(0,TAU),x=ox,y=oy;
+      for(var s=0;s<9;s++){
+        x+=Math.cos(ang)*rnd(30,90); y+=Math.sin(ang)*rnd(30,90);
+        ang+=rnd(-.7,.7); pts.push({x:x,y:y});
+      }
+      FX.BOLT.push({pts:pts,a:1,c:Math.random()<.5?"#00F0FF":"#fff"});
+    }
+  }
 }
 function fxFrame(t){
   var ctx=FX.ctx,dt=Math.min(34,t-FX.last); FX.last=t;
   ctx.clearRect(0,0,innerWidth,innerHeight);
-  var i;
-  for(i=FX.SLASH.length-1;i>=0;i--){
-    var s=FX.SLASH[i]; s.a-=dt*.0035;
-    if(s.a<=0){FX.SLASH.splice(i,1);continue}
-    ctx.globalAlpha=s.a; ctx.strokeStyle="#FFF6DC"; ctx.lineWidth=s.w*s.a;
-    ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke();
+  ctx.globalCompositeOperation="lighter";
+  var i,s;
+  for(i=FX.RING.length-1;i>=0;i--){
+    s=FX.RING[i];
+    if(s.d>0){s.d-=dt;continue}
+    s.r+=dt*1.9; s.a-=dt*.0013;
+    if(s.a<=0){FX.RING.splice(i,1);continue}
+    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,TAU);
+    ctx.strokeStyle="rgba(255,220,150,"+s.a.toFixed(3)+")";
+    ctx.lineWidth=Math.max(1,s.w*s.a); ctx.stroke();
+    ctx.beginPath(); ctx.arc(s.x,s.y,s.r*.82,0,TAU);
+    ctx.strokeStyle="rgba(255,30,142,"+(s.a*.6).toFixed(3)+")";
+    ctx.lineWidth=Math.max(1,s.w*s.a*.6); ctx.stroke();
+  }
+  for(i=FX.BOLT.length-1;i>=0;i--){
+    var bl=FX.BOLT[i]; bl.a-=dt*.004;
+    if(bl.a<=0){FX.BOLT.splice(i,1);continue}
+    ctx.beginPath(); ctx.moveTo(bl.pts[0].x,bl.pts[0].y);
+    for(var k=1;k<bl.pts.length;k++) ctx.lineTo(bl.pts[k].x,bl.pts[k].y);
+    ctx.strokeStyle=bl.c; ctx.globalAlpha=bl.a; ctx.lineWidth=rnd(1.5,4); ctx.stroke();
+    ctx.globalAlpha=1;
   }
   for(i=FX.P.length-1;i>=0;i--){
     var p=FX.P[i];
-    p.vy+=.46; p.vx*=.99; p.vy*=.99;
+    p.vy+=p.type==="fire"?-.06:.44;
+    p.vx*=.986; p.vy*=.986;
     p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.life-=p.dk;
-    if(p.life<=0||p.y>innerHeight+140){FX.P.splice(i,1);continue}
-    ctx.globalAlpha=Math.max(0,p.life); ctx.fillStyle=p.c;
-    if(p.shard){
+    if(p.life<=0||p.y>innerHeight+160){FX.P.splice(i,1);continue}
+    ctx.globalAlpha=Math.max(0,p.life);
+    ctx.fillStyle=p.c;
+    if(p.type==="debris"){
       ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-      ctx.fillRect(-p.r*.7,-p.r*.22,p.r*1.4,p.r*.44); ctx.restore();
+      ctx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2); ctx.restore();
+    }else if(p.trail){
+      ctx.strokeStyle=p.c; ctx.lineWidth=p.r;
+      ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x-p.vx*2.4,p.y-p.vy*2.4); ctx.stroke();
     }else{
-      ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r*p.life,p.r*p.life*rnd(.75,1.05),p.rot,0,TAU); ctx.fill();
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r*p.life,0,TAU); ctx.fill();
     }
   }
-  ctx.globalAlpha=1;
-  if(FX.P.length||FX.SLASH.length) FX.raf=requestAnimationFrame(fxFrame);
-  else FX.cv.classList.remove("on");
+  ctx.globalAlpha=1; ctx.globalCompositeOperation="source-over";
+  if(FX.P.length||FX.RING.length||FX.BOLT.length){ FX.raf=requestAnimationFrame(fxFrame); }
+  else { FX.cv.classList.remove("on"); }
 }
 
-/* ============================================================ FINALE */
-var FINALE=[
-  {t:0,    line:"SO. THE SCROLL IS SIGNED.",       fx:function(){gong(1)}},
-  {t:1100, line:"WATCH OUT. HERE COME THE GUNS.",  fx:function(){taiko(1);whoosh(.4)}},
-  {t:2300, line:"IT IS TOO LATE TO SIT ELSEWHERE.",fx:function(){shing(1)}}
+/* ========================================================== THE SEQUENCE */
+var BOOT=[
+  "&gt; VALIDATING SIGNER IDENTITY .......... OK",
+  "&gt; SLEEVE INTEGRITY SCAN ............... STRAINED",
+  "&gt; ROBOT EXCLUSION SCREEN .............. HUMAN",
+  "&gt; APPLYING BUREAU SEAL ................ DONE",
+  "&gt; PRESSURIZING INSTRUMENT ............. WARNING",
+  "&gt; CONTAINMENT ................ <span style='color:#FF1E8E'>FAILED</span>"
 ];
+var BOOTV=["IDENTITY CONFIRMED.","SLEEVE INTEGRITY STRAINED.","HUMAN CONFIRMED.",
+  "BUREAU SEAL APPLIED.","WARNING.","CONTAINMENT FAILED."];
 
 function detonate(){
-  var doc=$("#doc");
-  FINALE.forEach(function(step){
-    setTimeout(function(){ step.fx(); say(step.line,{pitch:.55,rate:.78,hold:2400}); },
-      reduced?step.t/8:step.t);
-  });
-  setTimeout(function(){
-    runLeader(function(){ blast(doc); });
-  },reduced?260:3300);
-}
+  var doc=$("#doc"),term=$("#term"),host=$("#termlines");
+  host.innerHTML=""; term.classList.add("on");
+  var i=0;
+  (function next(){
+    if(i<BOOT.length){
+      var d=document.createElement("div"); d.innerHTML=BOOT[i]; host.appendChild(d);
+      beep(480+i*110,0,.06); say(BOOTV[i],{pitch:.15,rate:.95});
+      i++; setTimeout(next,reduced?60:340);
+    } else { setTimeout(go,reduced?60:520); }
+  })();
 
-function blast(doc){
-  var r=doc.getBoundingClientRect();
-  var ox=r.left+r.width/2, oy=r.top+r.height*.4;
-  fxInit(); FX.last=performance.now();
+  function go(){
+    term.classList.remove("on");
+    var r=doc.getBoundingClientRect();
+    var ox=r.left+r.width/2, oy=r.top+r.height*.42;
 
-  gong(1); taiko(1); thud(1); shing(1);
-  say("THE GUNS ARE FREE.",{pitch:.45,rate:.72,hold:2600});
+    fxInit(); FX.last=performance.now();
+    siren(); boom(1);
+    $("#klaxon").classList.add("on");
+    say("COMPLIANCE CONFIRMED.",{pitch:.1,rate:.8});
 
-  $("#flash").animate([{opacity:0},{opacity:1,offset:.05},{opacity:.5,offset:.3},{opacity:0}],
-    {duration:820,easing:"ease-out"});
+    $("#flash").animate([{opacity:0},{opacity:1,offset:.05},{opacity:.6,offset:.25},{opacity:0}],
+      {duration:900,easing:"ease-out"});
 
-  if(!reduced){
-    document.body.animate([
-      {transform:"translate(0,0) rotate(0deg) scale(1)"},
-      {transform:"translate(-20px,12px) rotate(-1.2deg) scale(1.02)"},
-      {transform:"translate(18px,-15px) rotate(1deg) scale(1.03)"},
-      {transform:"translate(-12px,-8px) rotate(-.6deg) scale(1.01)"},
-      {transform:"translate(0,0) rotate(0deg) scale(1)"}
-    ],{duration:900,easing:"ease-out"});
-    document.body.animate([{filter:"none"},{filter:"contrast(2.1) sepia(.7) brightness(1.3)"},
-      {filter:"contrast(1.3) sepia(.3)"},{filter:"none"}],{duration:760});
-  }
+    if(!reduced){
+      document.body.animate([
+        {transform:"translate(0,0) rotate(0deg)"},{transform:"translate(-22px,14px) rotate(-1.4deg)"},
+        {transform:"translate(20px,-16px) rotate(1.2deg)"},{transform:"translate(-14px,-10px) rotate(-.8deg)"},
+        {transform:"translate(12px,9px) rotate(.5deg)"},{transform:"translate(0,0) rotate(0deg)"}
+      ],{duration:1000,easing:"ease-out"});
+      document.body.animate([{filter:"none"},{filter:"hue-rotate(120deg) saturate(4) contrast(1.6)"},
+        {filter:"hue-rotate(-90deg) saturate(3)"},{filter:"none"}],{duration:800});
+    }
 
-  for(var s=0;s<(reduced?2:7);s++) setTimeout(slashLine,s*70);
-  slice(doc,Math.random()<.5?0.4:1.4);
-  doc.style.visibility="hidden";
-  splatter(ox,oy,1.3);
-  FX.raf=requestAnimationFrame(fxFrame);
+    shatter(doc,50,42);
+    doc.style.visibility="hidden";
+    burst(ox,oy,1.35);
+    FX.raf=requestAnimationFrame(fxFrame);
 
-  [[340,.7],[660,.85],[1000,.6],[1340,.95]].forEach(function(pair){
+    /* cascading secondaries */
+    [[380,.7],[700,.85],[1050,.6],[1400,1.0],[1750,.55]].forEach(function(pair){
+      setTimeout(function(){
+        if(reduced) return;
+        burst(rnd(innerWidth*.12,innerWidth*.88),rnd(innerHeight*.18,innerHeight*.75),pair[1]);
+        boom(pair[1]*.8);
+        if(!FX.raf||!FX.cv.classList.contains("on")){ fxInit(); FX.last=performance.now(); FX.raf=requestAnimationFrame(fxFrame); }
+      },pair[0]);
+    });
+
+    setTimeout(function(){$("#klaxon").classList.remove("on")},2600);
+
+    /* EXECUTED slam */
     setTimeout(function(){
-      if(reduced) return;
-      splatter(rnd(innerWidth*.15,innerWidth*.85),rnd(innerHeight*.2,innerHeight*.75),pair[1]);
-      slashLine(); thud(pair[1]); if(Math.random()<.6) shing(.8);
-      if(!FX.cv.classList.contains("on")){ fxInit(); FX.last=performance.now(); FX.raf=requestAnimationFrame(fxFrame); }
-    },pair[0]);
-  });
+      var sl=$("#slam"); sl.classList.add("on");
+      boom(.7); say("EXECUTED.",{pitch:.05,rate:.7});
+      setTimeout(function(){ sl.classList.remove("on"); },1500);
+    },reduced?150:1500);
 
-  setTimeout(function(){
-    var sl=$("#slam"); sl.classList.add("on");
-    gong(1); taiko(1);
-    say("TOTAL COMPLIANCE.",{pitch:.4,rate:.7,hold:2200});
-    setTimeout(function(){sl.classList.remove("on")},1600);
-  },reduced?150:1500);
-
-  setTimeout(function(){
-    $("#rDate").textContent=new Date().toLocaleString();
-    $("#rSig").src=sig.url();
-    doc.style.display="none";
-    $("#after").classList.add("on");
-    $("#after").scrollIntoView({behavior:reduced?"auto":"smooth",block:"center"});
-    runHonor();
-    say("THE BISCUITS ARE YOURS.",{pitch:.6,rate:.8,hold:3000});
-  },reduced?300:3200);
+    /* aftermath */
+    setTimeout(function(){
+      $("#rDate").textContent=new Date().toLocaleString();
+      $("#rSig").src=sig.url();
+      doc.style.display="none";
+      $("#after").classList.add("on");
+      $("#after").scrollIntoView({behavior:reduced?"auto":"smooth",block:"center"});
+      runScore();
+      say("BEVERAGE ACCESS RESTORED.",{pitch:.2,rate:.85});
+    },reduced?300:3100);
+  }
 }
 
-function runHonor(){
-  var target=9999999, el=$("#scoreval"), start=performance.now(), dur=reduced?200:2400;
+function runScore(){
+  var target=9999999, el=$("#scoreval"), start=performance.now(), dur=reduced?200:2200;
   (function tick(t){
     var k=Math.min(1,(t-start)/dur), e=1-Math.pow(1-k,3);
     el.textContent=Math.floor(target*e).toLocaleString();
-    if(k<1){ if(Math.random()<.22) block(.5); requestAnimationFrame(tick); }
-    else { $("#rank").textContent="RANK: GRANDMASTER OF THE SLEEVE"; gong(.8);
-           say("GRANDMASTER OF THE SLEEVE.",{pitch:.5,rate:.75,hold:2800}); }
+    if(k<1){ if(Math.random()<.3) beep(rnd(900,1600),0,.02,"square"); requestAnimationFrame(tick); }
+    else { $("#rank").textContent="RANK: S++"; beep(1800,0,.3,"square"); say("RANK. S PLUS PLUS.",{pitch:.3,rate:.8}); }
   })(start);
 }
 
 $("#go").addEventListener("click",function(){
   arm();
-  var bad=validate(), err=$("#err");
+  var bad=validate();
+  var err=$("#err");
   if(bad){
-    err.textContent=bad.msg; say(bad.v,{pitch:.5,rate:.8});
-    thud(.6);
-    if(!reduced) $("#doc").animate([{transform:"translateX(0)"},{transform:"translateX(-13px)"},
-      {transform:"translateX(13px)"},{transform:"translateX(0)"}],{duration:290});
+    err.textContent=bad.msg; say(bad.v,{pitch:.1,rate:.85});
+    if(!reduced) $("#doc").animate([{transform:"translateX(0)"},{transform:"translateX(-12px)"},
+      {transform:"translateX(12px)"},{transform:"translateX(0)"}],{duration:280});
+    beep(110,0,.2,"sawtooth");
     return;
   }
   err.textContent=""; this.disabled=true;
   detonate();
 });
 
+/* --------------------------------------------------------------- retrieve */
 $("#again").addEventListener("click",function(){
   $("#after").classList.remove("on");
   var doc=$("#doc");
   doc.style.display=""; doc.style.visibility="visible";
   $("#go").disabled=false;
   $("#scoreval").textContent="0"; $("#rank").innerHTML="RANK: &mdash;";
-  doc.animate([{opacity:0,transform:"scale(.9)"},{opacity:1,transform:"scale(1)"}],
-    {duration:620,easing:"cubic-bezier(.2,.9,.3,1)"});
+  doc.animate([{opacity:0,transform:"scale(.88)"},{opacity:1,transform:"scale(1)"}],
+    {duration:600,easing:"cubic-bezier(.2,.9,.3,1)"});
   doc.scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
-  gong(.6); say("THE SCROLL IS RESTORED.");
+  say("DOCUMENT REASSEMBLED.",{pitch:.2});
 });
 
-/* --------------------------------------------------------------- scroll */
+/* --------------------------------------------------------------- download */
 $("#dl").addEventListener("click",function(){
-  var W=1000,H=1460,c=document.createElement("canvas");
+  var W=1000,H=1500,c=document.createElement("canvas");
   c.width=W;c.height=H;var x=c.getContext("2d");
-  var g=x.createLinearGradient(0,0,W,H);
-  g.addColorStop(0,"#E6D8B4"); g.addColorStop(.55,"#D9C79B"); g.addColorStop(1,"#C4AF7F");
+  var g=x.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,"#150a2e"); g.addColorStop(.5,"#2a0a44"); g.addColorStop(1,"#0a0118");
   x.fillStyle=g; x.fillRect(0,0,W,H);
-  for(var i=0;i<2600;i++){
-    x.globalAlpha=Math.random()*.05; x.fillStyle=Math.random()<.5?"#8B7A58":"#241A12";
-    x.fillRect(Math.random()*W,Math.random()*H,Math.random()*3,Math.random()*3);
+  for(var i=-H;i<W+H;i+=64){
+    x.strokeStyle=(i/64)%2===0?"#FFD319":"#FF1E8E"; x.globalAlpha=.85; x.lineWidth=22;
+    x.beginPath(); x.moveTo(i,0); x.lineTo(i-120,120); x.stroke();
+    x.beginPath(); x.moveTo(i,H); x.lineTo(i-120,H-120); x.stroke();
   }
   x.globalAlpha=1;
-  x.strokeStyle="#8E1616"; x.lineWidth=10; x.strokeRect(26,26,W-52,H-52);
-  x.strokeStyle="#241A12"; x.lineWidth=3;  x.strokeRect(42,42,W-84,H-84);
-  x.strokeStyle="#C9A227"; x.lineWidth=3;  x.strokeRect(52,52,W-104,H-104);
+  x.fillStyle="#12072a"; x.fillRect(44,150,W-88,H-300);
+  x.strokeStyle="#00F0FF"; x.lineWidth=6; x.strokeRect(44,150,W-88,H-300);
 
-  x.textAlign="center"; x.fillStyle="#8E1616";
-  x.font="italic 24px Georgia, serif";
-  x.fillText("The Bureau of Guns Proximity Compliance presents",W/2,138);
-  x.fillStyle="#8E1616"; x.font="bold 76px Impact, 'Arial Black', sans-serif";
-  x.fillText("THE BICEPS PROXIMITY",W/2,232);
-  x.fillText("WAIVER",W/2,306);
-  x.fillStyle="#241A12"; x.font="italic 25px Georgia, serif";
-  x.fillText("\u201CThey came for the biscuits. They stayed for the arms.\u201D",W/2,356);
+  x.textAlign="center";
+  x.fillStyle="#FFD319"; x.font="bold 70px Impact, 'Arial Black', sans-serif";
+  x.fillText("BICEPS PROXIMITY WAIVER",W/2,268);
+  x.fillStyle="#00F0FF"; x.font="22px ui-monospace, 'Courier New', monospace";
+  x.fillText("BUREAU OF GUNS PROXIMITY COMPLIANCE",W/2,312);
+  x.fillStyle="#8B7BB8";
+  x.fillText("FORM BGP-1147  \u00B7  EXECUTED COPY",W/2,348);
 
-  x.strokeStyle="#241A12"; x.lineWidth=2;
-  x.beginPath(); x.moveTo(120,392); x.lineTo(W-120,392); x.stroke();
+  x.strokeStyle="#B026FF"; x.lineWidth=2;
+  x.beginPath(); x.moveTo(100,384); x.lineTo(W-100,384); x.stroke();
 
-  x.fillStyle="#8E1616"; x.font="bold 44px Impact, 'Arial Black', sans-serif";
-  x.fillText("HONOR ACCRUED  9,999,999",W/2,456);
-  x.fillStyle="#241A12"; x.font="bold 30px Impact, 'Arial Black', sans-serif";
-  x.fillText("RANK: GRANDMASTER OF THE SLEEVE",W/2,502);
+  x.fillStyle="#FFD319"; x.font="bold 54px Impact, 'Arial Black', sans-serif";
+  x.fillText("COMPLIANCE SCORE  9,999,999",W/2,452);
+  x.fillStyle="#FF1E8E"; x.font="bold 40px Impact, 'Arial Black', sans-serif";
+  x.fillText("RANK: S++",W/2,502);
 
-  x.textAlign="left"; x.font="23px 'Courier New', monospace"; x.fillStyle="#241A12";
-  var rows=[["EXECUTED",new Date().toLocaleString()],["SCROLL",ctl],["BEVERAGE ACCESS","RESTORED"]];
+  x.textAlign="left"; x.font="24px ui-monospace, 'Courier New', monospace";
+  var rows=[["EXECUTED",new Date().toLocaleString()],
+            ["CONTROL",ctl],["BEVERAGE ACCESS","RESTORED"]];
   rows.forEach(function(r,i){
-    var y=578+i*50;
-    x.fillStyle="#3B2C1E"; x.fillText(r[0],110,y);
-    x.fillStyle="#241A12"; x.fillText(r[1],400,y);
+    var y=584+i*52;
+    x.fillStyle="#00F0FF"; x.fillText(r[0],100,y);
+    x.fillStyle="#EFEAFF"; x.fillText(r[1],390,y);
   });
 
-  x.fillStyle="#3B2C1E"; x.font="23px 'Courier New', monospace";
-  x.fillText("THE MARK",110,808);
-  x.strokeStyle="#241A12"; x.lineWidth=2;
-  x.beginPath(); x.moveTo(110,946); x.lineTo(W-110,946); x.stroke();
+  x.fillStyle="#00F0FF"; x.fillText("SIGNATURE",100,838);
+  x.strokeStyle="#B026FF"; x.lineWidth=2;
+  x.beginPath(); x.moveTo(100,980); x.lineTo(W-100,980); x.stroke();
 
   var sigImg=new Image(), qrImg=new Image(), pending=2;
   function done(){ if(--pending>0) return; finish(); }
   sigImg.onload=function(){
     var iw=Math.min(520,sigImg.width),ih=sigImg.height*(iw/sigImg.width);
-    x.drawImage(sigImg,120,946-ih-10,iw,ih); done();
+    x.drawImage(sigImg,110,980-ih-10,iw,ih); done();
   };
   sigImg.onerror=done; sigImg.src=sig.url();
   qrImg.onload=function(){
-    x.fillStyle="#fff"; x.fillRect(W-296,996,200,200);
-    x.strokeStyle="#241A12"; x.lineWidth=3; x.strokeRect(W-296,996,200,200);
-    x.drawImage(qrImg,W-286,1006,180,180);
-    x.fillStyle="#3B2C1E"; x.font="17px 'Courier New', monospace"; x.textAlign="center";
-    x.fillText("SEAL OF THE BUREAU",W-196,1226); x.textAlign="left";
+    x.fillStyle="#fff"; x.fillRect(W-286,1020,196,196);
+    x.drawImage(qrImg,W-278,1028,180,180);
+    x.fillStyle="#00F0FF"; x.font="17px ui-monospace, 'Courier New', monospace";
+    x.textAlign="center"; x.fillText("SCAN TO VERIFY",W-188,1244); x.textAlign="left";
     done();
   };
   qrImg.onerror=done; qrImg.src=$("#qr").src;
 
   function finish(){
-    x.save(); x.translate(320,1110); x.rotate(-.13);
-    x.strokeStyle="#8E1616"; x.lineWidth=8; x.strokeRect(-210,-60,420,120);
-    x.fillStyle="#8E1616"; x.textAlign="center";
-    x.font="bold 70px Impact, 'Arial Black', sans-serif";
-    x.fillText("EXECUTED",0,24); x.restore();
-    x.textAlign="center"; x.fillStyle="#3B2C1E"; x.font="19px 'Courier New', monospace";
+    x.save(); x.translate(330,1130); x.rotate(-.16);
+    x.strokeStyle="#FF1E8E"; x.lineWidth=8; x.strokeRect(-215,-62,430,124);
+    x.fillStyle="#FF1E8E"; x.textAlign="center";
+    x.font="bold 74px Impact, 'Arial Black', sans-serif";
+    x.fillText("EXECUTED",0,26); x.restore();
+    x.textAlign="center"; x.fillStyle="#8B7BB8";
+    x.font="19px ui-monospace, 'Courier New', monospace";
     x.fillText("THIS IS A JOKE. NOT A REAL FORM. NO RIGHTS WERE WAIVED.",W/2,1330);
     var a=document.createElement("a");
-    a.download="BGP-1147_The_Executed_Scroll.png";
+    a.download="BGP-1147_Executed_Waiver.png";
     a.href=c.toDataURL("image/png"); a.click();
-    gong(.7); say("THE SCROLL IS YOURS.");
+    say("COPY DISPATCHED.",{pitch:.25});
   }
 });
 })();
