@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- BGP-1147 // TEN SEALS ARE HIDDEN IN THIS INSTRUMENT.
+     THE FIRST ONE IS WATCHING YOU RECORD.
+     THE LAST ONE OPENS ONLY FOR THE PROVEN. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -250,6 +253,37 @@ input[type=text]:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255
 .ack p.punch{font-size:16.5px;line-height:1.45;color:#FFE9B0;font-weight:700;
   letter-spacing:.01em;text-shadow:0 0 14px rgba(255,179,0,.5)}
 
+/* ========================================================== TEN SEALS */
+#eggchip{position:fixed;top:10px;left:10px;z-index:95;display:none;cursor:pointer;
+  background:rgba(10,1,24,.92);border:1px solid var(--toxic);color:var(--toxic);
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;padding:7px 10px;
+  text-transform:uppercase;box-shadow:0 0 14px rgba(182,255,58,.35)}
+#eggchip.on{display:block}
+#eggmodal{position:fixed;inset:0;z-index:97;display:none;align-items:center;justify-content:center;
+  background:rgba(4,0,12,.92);padding:18px}
+#eggmodal.on{display:flex}
+#eggpanel{max-width:540px;width:100%;max-height:82vh;overflow:auto;background:#0A0118;
+  border:1px solid var(--toxic);box-shadow:0 0 34px rgba(182,255,58,.35);padding:18px 16px;
+  font-family:var(--mono);color:var(--toxic);font-size:12px;line-height:1.7}
+#eggpanel h4{font-family:var(--display);font-size:17px;letter-spacing:.08em;margin-bottom:10px;
+  color:var(--sun);text-transform:uppercase}
+#eggpanel .row{padding:7px 0;border-bottom:1px dashed rgba(182,255,58,.25)}
+#eggpanel .row b{color:var(--sun);font-weight:400;letter-spacing:.06em}
+#eggpanel .row i{font-style:normal;color:#8FAE5A;display:block;font-size:11px;margin-top:2px}
+#eggpanel .x{margin-top:14px;width:100%;background:none;border:1px solid var(--toxic);
+  color:var(--toxic);font-family:var(--mono);font-size:11px;letter-spacing:.14em;padding:10px;
+  cursor:pointer;text-transform:uppercase}
+#eggpanel .x:hover{background:var(--toxic);color:#0A0118}
+#feed07{position:fixed;inset:0;z-index:96;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px;text-align:center;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 1px,rgba(2,0,8,.94) 1px 3px);
+  color:var(--toxic);font-family:var(--mono);letter-spacing:.2em;
+  animation:feedjit .12s steps(2) infinite}
+#feed07 b{font-size:clamp(16px,4.6vw,24px);color:#fff;text-shadow:0 0 12px var(--alarm)}
+@keyframes feedjit{50%{transform:translate(2px,-1px)}}
+#egg8{border-bottom:1px dotted rgba(139,123,184,.55);cursor:pointer}
+.marcher{position:fixed;z-index:94;pointer-events:none;left:-70px}
+
 #term{position:fixed;inset:0;z-index:70;background:rgba(4,0,12,.96);display:none;
   flex-direction:column;align-items:center;justify-content:center;padding:24px;
   font-size:13.5px;color:var(--cyan);letter-spacing:.07em;text-shadow:0 0 10px var(--cyan)}
@@ -421,7 +455,7 @@ input[type=text]:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255
     <div class="err" id="err"></div>
   </div>
 
-  <p class="fine">NOTICE REQUIRED BY NOBODY. This instrument is a work of comedy and exists solely for the amusement of its parties. It creates no obligation, transfers no right, waives no claim, and is enforceable by no authority whatsoever, the Bureau expressly included. The Bureau of Guns Proximity Compliance does not exist. No signature entered here is transmitted or stored anywhere; it lives only on this device and vanishes when the page is closed.</p>
+  <p class="fine">NOTICE REQUIRED BY NOBODY. This instrument is a work of comedy and exists solely for the amusement of its parties. It creates no obligation, transfers no right, waives no claim, and is enforceable by no authority whatsoever, <span id="egg8">the Bureau expressly included</span>. The Bureau of Guns Proximity Compliance does not exist. No signature entered here is transmitted or stored anywhere; it lives only on this device and vanishes when the page is closed.</p>
   <div class="foot"><span>BGP-1147 &middot; PAGE 1 OF 1</span><b>NOT A REAL FORM</b></div>
   <div class="stamp">Do Not Distribute</div>
 </div>
@@ -449,6 +483,8 @@ input[type=text]:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255
   </div>
 </div>
 
+<div id="eggchip" role="button" tabindex="0">SEALS 0/10</div>
+<div id="eggmodal"><div id="eggpanel"></div></div>
 <div id="vox"></div>
 <div id="term"><div id="termlines"></div></div>
 <div id="shards"></div>
@@ -491,10 +527,11 @@ document.querySelectorAll(".redact").forEach(function(r){
 /* ------------------------------------------------------------ jitter FX */
 var fill=$("#fill");
 if(!reduced){
-  setInterval(function(){fill.style.width=(89+Math.random()*11).toFixed(1)+"%"},180);
+  setInterval(function(){if(!fill.dataset.lock)fill.style.width=(89+Math.random()*11).toFixed(1)+"%"},180);
   var THREATS=["SWOLE","SWOLE","SWOLE","MAXIMUM","CRITICAL","SWOLE","UNSAFE"];
   setInterval(function(){
-    $("#threat").textContent=THREATS[Math.floor(Math.random()*THREATS.length)];
+    var t=$("#threat");
+    if(!t.dataset.lock) t.textContent=THREATS[Math.floor(Math.random()*THREATS.length)];
   },2600);
   setInterval(function(){
     var v=$("#vhs"); v.classList.remove("run"); void v.offsetWidth; v.classList.add("run");
@@ -1046,7 +1083,7 @@ function runScore(){
       if(step!==tick.last){ tick.last=step; beep(760+step*34,0,.028,"square"); }
       requestAnimationFrame(tick);
     } else {
-      $("#rank").textContent="RANK: S++";
+      $("#rank").textContent=window.__vault?"RANK: S\u221E \u00B7 SWOLE ETERNAL":"RANK: S++";
       beep(1046,0,.16,"square"); beep(1318,.10,.16,"square"); beep(1568,.20,.34,"square");
       blip();
     }
@@ -1158,6 +1195,320 @@ $("#dl").addEventListener("click",function(){
     blip(); beep(1180,.08,.12,"sine");
   }
 });
+
+/* ============================= THE TEN SEALS ============================= */
+(function(){
+var LS_E="bgp1147_seals", LS_V="bgp1147_vault";
+var CATALOG=[
+ {id:"code", name:"THE OLD CODE",            riddle:"THE OLD CODE STILL WORKS."},
+ {id:"unit", name:"ABSOLUTE UNIT",           riddle:"FLATTER THE THREAT. FIVE TIMES."},
+ {id:"feed", name:"FEED 07",                 riddle:"THE RED EYE NEVER BLINKS. HOLD ITS GAZE."},
+ {id:"bro",  name:"BRO MODE",                riddle:"SAY THE LAST WORD OF THE OATH. THREE LETTERS."},
+ {id:"reg",  name:"REGISTER OF THE FALLEN",  riddle:"EVERY INSTRUMENT HAS A NUMBER. PRESS IT."},
+ {id:"gary", name:"GARY",                    riddle:"UNSEAL WHAT WAS ALREADY UNSEALED."},
+ {id:"trem", name:"THE TREMOR",              riddle:"SHAKE THE WORLD. OR STRIKE THE METER. TWICE."},
+ {id:"zero", name:"ARTICLE ZERO",            riddle:"READ WHAT NOBODY READS."},
+ {id:"vigil",name:"THE VIGIL",               riddle:"DO NOTHING. SIXTY SECONDS OF NOTHING."},
+ {id:"vault",name:"THE VAULT",               riddle:"", locked:"NINE SEALS FIRST.",
+  open:"THE LEFT AND THE RIGHT ARE OF EQUAL STANDING. HOLD BOTH EDGES OF THE SCREEN. TOGETHER."}
+];
+var found={};
+try{ (JSON.parse(localStorage.getItem(LS_E))||[]).forEach(function(id){found[id]=1}); }catch(e){}
+function cat(id){ for(var i=0;i<CATALOG.length;i++) if(CATALOG[i].id===id) return CATALOG[i]; }
+function nfound(){ var n=0; for(var k in found) n++; return n; }
+function save(){ try{ localStorage.setItem(LS_E,JSON.stringify(Object.keys(found))); }catch(e){} }
+
+var chip=$("#eggchip"), modal=$("#eggmodal"), panel=$("#eggpanel");
+function refreshChip(){
+  if(nfound()>0){ chip.classList.add("on"); chip.textContent="SEALS "+nfound()+"/10"; }
+}
+function jingle(){ beep(880,0,.06,"square"); beep(1175,.08,.07,"square"); beep(1568,.17,.15,"square"); }
+function jolt(){
+  if(reduced) return;
+  document.body.animate([{transform:"translate(0,0)"},{transform:"translate(-8px,5px)"},
+    {transform:"translate(7px,-6px)"},{transform:"translate(0,0)"}],{duration:300});
+}
+function collect(id){
+  if(found[id]) return false;
+  found[id]=1; save(); jingle(); refreshChip();
+  chip.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],{duration:340});
+  caption("\u25C6 SEAL "+nfound()+"/10 BROKEN \u2014 "+cat(id).name,3400);
+  if(nfound()===9){ setTimeout(function(){ sweep(); caption("ONE REMAINS. EQUAL STANDING.",4200); },4000); }
+  return true;
+}
+function openModal(html){ panel.innerHTML=html; modal.classList.add("on"); blip(); }
+modal.addEventListener("click",function(e){ if(e.target===modal) modal.classList.remove("on"); });
+function closeBtn(){ return '<button class="x" onclick="document.getElementById(\'eggmodal\').classList.remove(\'on\')">CLOSE THE FILE</button>'; }
+
+function tracker(){
+  var h='<h4>THE TEN SEALS</h4>';
+  var nine=CATALOG.slice(0,9).every(function(c){return found[c.id]});
+  CATALOG.forEach(function(c){
+    var got=!!found[c.id];
+    var hint=got?"":(c.id==="vault"?(nine?c.open:c.locked):c.riddle);
+    h+='<div class="row">'+(got?"\u25C6 <b>"+c.name+"</b>":"\u25C7 <b>???</b>")+
+       (hint?"<i>"+hint+"</i>":"<i>BROKEN.</i>")+'</div>';
+  });
+  h+='<div class="row"><i>THE CONSOLE KNOWS MORE. TYPE BUREAU.riddles()</i></div>'+closeBtn();
+  openModal(h);
+}
+chip.addEventListener("click",tracker);
+chip.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){e.preventDefault();tracker();} });
+
+/* ------------------------------------------------- SEAL 1: THE OLD CODE */
+var KSEQ=["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","KeyB","KeyA"];
+var kbuf=[];
+function bigBurst(scale){
+  if(!FX.cv||!FX.cv.classList.contains("on")){ fxInit(); FX.last=performance.now(); FX.raf=requestAnimationFrame(fxFrame); }
+  burst(innerWidth/2,innerHeight/2,scale||1);
+}
+function oldCode(){
+  boom(.7); bigBurst(1); jolt();
+  caption("BUREAU OVERRIDE ACCEPTED.",2800);
+  collect("code");
+}
+var sbuf=[], sx=0, sy=0;
+document.addEventListener("touchstart",function(e){
+  if(e.touches.length===1){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; }
+},{passive:true});
+document.addEventListener("touchend",function(e){
+  if(e.touches.length!==0||!e.changedTouches.length) return;
+  var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+  if(Math.max(Math.abs(dx),Math.abs(dy))<44) return;
+  sbuf.push(Math.abs(dx)>Math.abs(dy)?(dx>0?"R":"L"):(dy>0?"D":"U"));
+  if(sbuf.length>8) sbuf.shift();
+  if(sbuf.join("")==="UUDDLRLR"){ sbuf=[]; oldCode(); }
+},{passive:true});
+
+/* ---------------------------------------------- SEAL 2: ABSOLUTE UNIT */
+var LEVELS=["MEGA SWOLE","ULTRA SWOLE","GIGA SWOLE","ABSOLUTE UNIT"];
+var th=$("#threat"), uIdx=0, uT=null;
+th.style.cursor="pointer";
+th.addEventListener("click",function(){
+  if(th.dataset.done) return;
+  th.dataset.lock="1";
+  th.textContent=LEVELS[Math.min(uIdx,LEVELS.length-1)];
+  zap(); jolt();
+  uIdx++;
+  clearTimeout(uT);
+  if(uIdx>=LEVELS.length){
+    th.dataset.done="1"; thunk();
+    var k=$("#klaxon"); k.classList.add("on");
+    setTimeout(function(){k.classList.remove("on")},1300);
+    collect("unit");
+  } else {
+    uT=setTimeout(function(){ delete th.dataset.lock; uIdx=0; },4000);
+  }
+});
+
+/* --------------------------------------------------- SEAL 3: FEED 07 */
+var rec=document.querySelector(".rec"), rT=null;
+rec.style.cursor="pointer";
+rec.addEventListener("pointerdown",function(e){
+  e.preventDefault();
+  rT=setTimeout(function(){
+    rT=null; hiss(); setTimeout(hiss,500); setTimeout(hiss,1100);
+    var f=document.createElement("div");
+    f.id="feed07";
+    f.innerHTML="<b>FEED 07 \u2014 LIVE</b><span>THE ARMS ARE WATCHING.</span><span>THEY HAVE ALWAYS BEEN WATCHING.</span>";
+    document.body.appendChild(f);
+    setTimeout(function(){ f.remove(); collect("feed"); },2600);
+  },1500);
+});
+["pointerup","pointerleave","pointercancel"].forEach(function(ev){
+  rec.addEventListener(ev,function(){ if(rT){clearTimeout(rT); rT=null;} });
+});
+
+/* --------------------------------------------------- SEAL 4: BRO MODE */
+var bbuf=[], broOn=false;
+function broMode(){
+  if(broOn) return; broOn=true;
+  var subs=["BRO.","BRO?","BRO!!","BROOO.","MEGA BRO."];
+  var heads=document.querySelectorAll(".ch");
+  var saved=[];
+  heads.forEach(function(h,i){
+    saved.push(h.innerHTML);
+    var em=h.querySelector("em");
+    h.innerHTML=(em?em.outerHTML+" ":"")+subs[i%subs.length];
+  });
+  var h1=document.querySelector(".title h1"), h1s=h1.textContent;
+  h1.textContent="BRO PROXIMITY BRO";
+  beep(392,0,.09,"square"); beep(392,.11,.09,"square"); beep(523,.22,.16,"square");
+  caption("BRO MODE ENGAGED.",2600);
+  collect("bro");
+  setTimeout(function(){
+    heads.forEach(function(h,i){ h.innerHTML=saved[i]; });
+    h1.textContent=h1s; broOn=false;
+  },6000);
+}
+document.addEventListener("keydown",function(e){
+  if(e.key&&e.key.length===1){ bbuf.push(e.key.toLowerCase()); if(bbuf.length>3)bbuf.shift();
+    if(bbuf.join("")==="bro") broMode(); }
+  kbuf.push(e.code); if(kbuf.length>10)kbuf.shift();
+  if(KSEQ.every(function(v,i){return kbuf[i]===v})){ kbuf=[]; oldCode(); }
+  if(e.code==="KeyF") tremor();
+  keys[e.code]=1; checkLR();
+});
+var punch=document.querySelector(".ack .punch"), pTaps=0, pT=null;
+if(punch) punch.addEventListener("pointerdown",function(){
+  pTaps++; clearTimeout(pT); pT=setTimeout(function(){pTaps=0},900);
+  if(pTaps>=3){ pTaps=0; broMode(); }
+});
+
+/* -------------------------------------- SEAL 5: REGISTER OF THE FALLEN */
+document.querySelector(".formno").addEventListener("click",function(){
+  var rows=[
+    ["CHAD THUNDERBICEP","9,999,999","S++"],
+    ["KEVIN","4","LOOKED AWAY. TWICE."],
+    ["DIANE (SOMEONE'S GRANDMOTHER)","8,700,201","S+"],
+    ["A GOLDEN RETRIEVER","9,999,999","S++ (PAW)"],
+    ["THE INTERN","12","SLEEVE FAILURE"],
+    ["BRAD","[REDACTED]","[REDACTED]"],
+    ["YOUR GYM TEACHER, 1997","6,431,880","A-"],
+    ["SOMEONE SIGNED ONLY \u201CBRO\u201D","9,999,998","SO CLOSE"]
+  ];
+  var h='<h4>REGISTER OF THE FALLEN</h4>';
+  rows.forEach(function(r){ h+='<div class="row"><b>'+r[0]+'</b><i>SCORE '+r[1]+' \u00B7 '+r[2]+'</i></div>'; });
+  h+='<div class="row"><i>THE REGISTER DOES NOT FORGET. IT BARELY FORGIVES.</i></div>'+closeBtn();
+  openModal(h);
+  collect("reg");
+});
+document.querySelector(".formno").style.cursor="pointer";
+
+/* -------------------------------------------------------- SEAL 6: GARY */
+document.querySelectorAll(".redact").forEach(function(r){
+  r.addEventListener("pointerdown",function(){ r.dataset.was=r.classList.contains("open")?"1":"0"; });
+  r.addEventListener("click",function(){
+    if(r.dataset.was==="1"&&!r.dataset.gary){
+      r.dataset.gary="1";
+      r.textContent="SECOND SEAL: the weather system has a name. It is Gary.";
+      zap(); blip();
+      collect("gary");
+    }
+  });
+});
+
+/* -------------------------------------------------- SEAL 7: THE TREMOR */
+var tCool=0;
+function tremor(){
+  var now=Date.now(); if(now-tCool<1500) return; tCool=now;
+  jolt(); thunk();
+  if(collect("trem")) caption("TREMOR LOGGED. THE ARMS FELT NOTHING.",3000);
+}
+try{
+  window.addEventListener("devicemotion",function(e){
+    var a=e.accelerationIncludingGravity; if(!a) return;
+    if(Math.abs(a.x||0)+Math.abs(a.y||0)+Math.abs(a.z||0)>45) tremor();
+  });
+}catch(e){}
+var bar=document.querySelector(".bar"), bTaps=0, bT=null;
+bar.addEventListener("pointerdown",function(){
+  bTaps++; clearTimeout(bT); bT=setTimeout(function(){bTaps=0},500);
+  if(bTaps>=2){ bTaps=0; tremor(); }
+});
+
+/* ------------------------------------------------ SEAL 8: ARTICLE ZERO */
+var e8=document.getElementById("egg8");
+if(e8) e8.addEventListener("click",function(){
+  sweep();
+  openModal('<h4>ARTICLE 0 \u2014 RECOVERED FRAGMENT</h4>'+
+    '<div class="row"><i>IN THE BEGINNING THERE WAS ONE REP. AND THE REP WAS HEAVY. AND IT WAS GOOD.</i></div>'+
+    '<div class="row"><i>FROM THE FIRST REP CAME THE LEFT. FROM THE ECHO OF THE LEFT, THE RIGHT.</i></div>'+
+    '<div class="row"><i>THE BUREAU WAS FOUNDED TO WITNESS. NOTHING MORE. WE DO NOT LIFT. WE OBSERVE. WE FILE.</i></div>'+
+    '<div class="row"><i>\u2014 FOUNDING SCROLL, SHELF 0. DO NOT LAMINATE.</i></div>'+closeBtn());
+  collect("zero");
+});
+
+/* --------------------------------------------------- SEAL 9: THE VIGIL */
+var lastAct=Date.now(), vigilFired=false;
+["pointerdown","keydown","wheel","touchstart","scroll"].forEach(function(ev){
+  addEventListener(ev,function(){lastAct=Date.now()},{passive:true});
+});
+setInterval(function(){
+  if(vigilFired||finaleRunning||!armed) return;
+  if(Date.now()-lastAct<60000) return;
+  vigilFired=true;
+  fill.dataset.lock="1"; fill.style.width="100%";
+  var k=$("#klaxon"); k.classList.add("on");
+  thunk(); sweep();
+  caption("THE ARMS GROW IMPATIENT.",3600);
+  for(var i=0;i<14;i++)(function(i){
+    setTimeout(function(){
+      var m=document.createElement("div");
+      m.className="marcher";
+      m.textContent="\uD83D\uDCAA";
+      m.style.top=(8+Math.random()*80)+"vh";
+      m.style.fontSize=(22+Math.random()*26)+"px";
+      document.body.appendChild(m);
+      m.animate([{transform:"translateX(0)"},{transform:"translateX("+(innerWidth+160)+"px)"}],
+        {duration:1800+Math.random()*1600,easing:"linear"}).onfinish=function(){m.remove()};
+    },i*130);
+  })(i);
+  setTimeout(function(){ k.classList.remove("on"); delete fill.dataset.lock; },2200);
+  collect("vigil");
+},5000);
+
+/* --------------------------------------------------- SEAL 10: THE VAULT */
+var keys={}, lrT=null, ltT=null;
+function goldify(){
+  var r=document.documentElement.style;
+  r.setProperty("--magenta","#FFC53D"); r.setProperty("--laser","#D4A017");
+  r.setProperty("--cyan","#FFE9A0");    r.setProperty("--toxic","#FFD700");
+  r.setProperty("--alarm","#FF9E1F");
+}
+function vaultReady(){ return CATALOG.slice(0,9).every(function(c){return found[c.id]}); }
+function openVault(){
+  if(found.vault){ caption("THE VAULT REMEMBERS YOU.",2400); blip(); return; }
+  if(!vaultReady()){ zap(); caption("THE VAULT DOES NOT OPEN FOR THE UNPROVEN.",3200); return; }
+  window.__vault=true;
+  try{ localStorage.setItem(LS_V,"1"); }catch(e){}
+  goldify(); boom(1); bigBurst(1.3); jolt();
+  collect("vault");
+  setTimeout(function(){ caption("\u25C6 THE VAULT IS OPEN \u2014 SWOLE ETERNAL",4600); },1200);
+}
+function checkLR(){
+  if(keys.KeyL&&keys.KeyR&&!lrT) lrT=setTimeout(function(){lrT=null;openVault();},1200);
+}
+document.addEventListener("keyup",function(e){
+  delete keys[e.code];
+  if(lrT&&(!keys.KeyL||!keys.KeyR)){ clearTimeout(lrT); lrT=null; }
+});
+function chkEdges(e){
+  var L=false,R=false;
+  for(var i=0;i<e.touches.length;i++){
+    var x=e.touches[i].clientX;
+    if(x<innerWidth*.3) L=true;
+    if(x>innerWidth*.7) R=true;
+  }
+  if(L&&R&&!ltT) ltT=setTimeout(function(){ltT=null;openVault();},1200);
+  if((!L||!R)&&ltT){ clearTimeout(ltT); ltT=null; }
+}
+["touchstart","touchend","touchcancel"].forEach(function(ev){
+  document.addEventListener(ev,chkEdges,{passive:true});
+});
+
+/* ------------------------------------------------------------ HERALDRY */
+try{ if(localStorage.getItem(LS_V)){ window.__vault=true; goldify(); } }catch(e){}
+refreshChip();
+try{
+  console.log("%cBGP-1147","font-family:monospace;font-size:22px;color:#B6FF3A;text-shadow:2px 2px 0 #FF1E8E");
+  console.log("%cTEN SEALS ARE HIDDEN IN THIS INSTRUMENT. THE FIRST WATCHES YOU RECORD.","color:#B6FF3A;font-family:monospace");
+  console.log("%cTYPE BUREAU.riddles() TO SEE THE LEDGER.","color:#8B7BB8;font-family:monospace");
+}catch(e){}
+window.BUREAU={
+  riddles:function(){
+    var nine=CATALOG.slice(0,9).every(function(c){return found[c.id]});
+    CATALOG.forEach(function(c){
+      var got=!!found[c.id];
+      console.log((got?"\u25C6 "+c.name:"\u25C7 ??? \u2014 "+
+        (c.id==="vault"?(nine?c.open:c.locked):c.riddle)));
+    });
+    return "SEALS: "+nfound()+"/10";
+  },
+  status:function(){ return nfound()+"/10"; }
+};
+})();
+
 })();
 </script>
 </body>
